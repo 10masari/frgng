@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url('roses.jpg');
+            background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url('https://images.unsplash.com/photo-1546842931-886c185b4c8c?q=80&w=1200&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -23,57 +23,9 @@
             position: relative;
         }
 
-        /* --- THE PRANK INTERFACE --- */
-        #prank-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100vh;
-            position: relative;
-        }
-
-        .prank-btn {
-            display: block;
-            background-color: #ff4d6d;
-            color: white;
-            border: none;
-            padding: 15px 35px;
-            font-size: 1.1rem;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.2s ease-out;
-            font-weight: 700;
-            box-shadow: 0 6px 15px rgba(255, 77, 109, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: absolute;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            z-index: 10;
-        }
-
-        .prank-btn:hover {
-            background-color: #e03a5a;
-            transform: scale(1.05);
-        }
-
-        .wacky-text {
-            color: #ffffff;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 8px 15px;
-            border-radius: 8px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
         /* --- MODERN UI DASHBOARD DISPLAY --- */
         .dashboard-container {
-            display: none; /* Initially hidden for the prank */
+            display: block;
             width: 100%;
             max-width: 650px;
             margin: 60px auto 40px auto;
@@ -98,7 +50,7 @@
 
         /* --- TOP CONTROL ACTIONS BAR --- */
         .top-action-bar {
-            display: none; /* Initially hidden for the prank */
+            display: flex;
             position: fixed;
             top: 20px;
             left: 20px;
@@ -140,6 +92,7 @@
         }
         #top-horror-btn:hover { background: #000000; color: #ff4d6d; transform: translateY(-1px); }
 
+        /* THE SEPARATE VOID BUTTON STYLING */
         #top-void-btn {
             background: rgba(138, 79, 110, 0.95);
             border: 1px solid rgba(255,255,255,0.1);
@@ -165,6 +118,7 @@
             background: rgba(20, 15, 20, 0.95);
         }
 
+        /* SEPARATE VOID INTERFACE ZONE */
         #void-overlay {
             background: rgba(10, 10, 12, 0.98);
         }
@@ -189,6 +143,7 @@
             animation: guideTextAnimation 8s infinite ease-in-out;
         }
 
+        /* THE VOID INPUT BOX STYLES */
         .void-card {
             width: 100%;
             max-width: 500px;
@@ -303,7 +258,7 @@
         .contact-action-btn {
             background: #25d366; color: white; text-decoration: none; display: inline-flex;
             align-items: center; justify-content: center; gap: 8px; padding: 12px 24px;
-            border-radius: 20px; font-weight: 700; font-size: 0.95rem; box-shadow: 0 4px 12px rgba(37,211,102,0.25);
+            border-radius: 20px; font-weight: 700; font-size: 0.95rem; box-shadow: 0 4px 12 rgba(37,211,102,0.25);
             margin-top: 15px; width: fit-content; transition: all 0.2s ease;
         }
         .contact-action-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(37,211,102,0.35); }
@@ -339,10 +294,6 @@
     </style>
 </head>
 <body>
-
-    <div id="prank-container">
-        <button id="main-prank-btn" class="prank-btn" onclick="prankClicked()">CLICK ME!</button>
-    </div>
 
     <div class="top-action-bar" id="global-action-bar">
         <div class="action-bar-buttons-left">
@@ -433,69 +384,6 @@
     </div>
 
     <script>
-        // --- PRANK CONFIG LOGIC ---
-        var prankCount = 0;
-        var prankContainer = document.getElementById("prank-container");
-        var finalDashboard = document.getElementById("final-dashboard");
-        var prankButton = document.getElementById("main-prank-btn");
-        var globalActionBar = document.getElementById("global-action-bar");
-        
-        var prankSteps = [
-            "You sure you clicked me?",
-            "Ok, but did you *REALLY* click me?",
-            "Are you trying to ignore the main point? 😂",
-            "Why do you keep chasing this button?",
-            "This isn't leading anywhere, you know.",
-            "Wow, persistent!",
-            "Maybe the next click will be the one...",
-            "Are you even reading these?",
-            "Last chance to turn back!",
-            "I'm running out of wacky questions!",
-            "Ok, fine! You win. The REAL surprise is ready."
-        ];
-
-        function prankClicked() {
-            prankCount++;
-            if (prankCount >= prankSteps.length) {
-                prankContainer.style.display = "none"; 
-                finalDashboard.style.display = "block"; 
-                globalActionBar.style.display = "flex";
-                return;
-            }
-            moveButton(prankButton);
-            prankButton.innerText = prankSteps[prankCount];
-
-            if (prankCount % 2 === 0) {
-                 addWackyFeedback("Keep chasing!");
-            } else if (prankCount === 8) {
-                 addWackyFeedback("Almost there...");
-            }
-        }
-
-        function moveButton(btn) {
-            var range = 35; 
-            var randomLeft = Math.random() * (range * 2) - range; 
-            var randomTop = Math.random() * (range * 2) - range;   
-            btn.style.left = "calc(50% + " + randomLeft + "%)";
-            btn.style.top = "calc(50% + " + randomTop + "%)";
-            var randomRotation = Math.random() * (15 * 2) - 15; 
-            btn.style.transform = "translate(-50%, -50%) rotate(" + randomRotation + "deg)";
-        }
-        
-        function addWackyFeedback(text) {
-             var feedback = document.createElement("div");
-             feedback.className = "wacky-text";
-             feedback.innerText = text;
-             prankContainer.insertBefore(feedback, prankButton);
-             setTimeout(() => { feedback.style.opacity = 1; feedback.style.animation = "wackyPop 0.4s ease"; }, 50);
-             setTimeout(() => { feedback.style.opacity = 0; setTimeout(() => { feedback.remove(); }, 300); }, 1300);
-        }
-
-        window.onload = function() {
-            moveButton(prankButton);
-            prankButton.style.opacity = 1;
-        };
-
         // --- DYNAMIC EMERGENCY PANIC OVERLAY SCRIPT HANDLE ---
         var breathingTextElement = document.getElementById("breathing-guide-text");
         var breathingInterval;
