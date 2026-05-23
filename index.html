@@ -7,8 +7,8 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* Background image setup */
-            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('roses.jpg');
+            /* Linked directly to your uploaded file name on GitHub */
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('roses.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -20,177 +20,404 @@
             margin: 0;
             padding: 20px;
             box-sizing: border-box;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        /* Frosted glass effect for the card */
-        .card {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 35px;
-            border-radius: 24px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-            text-align: center;
-            max-width: 480px;
+        /* --- MODERN UI DASHBOARD DISPLAY --- */
+        .dashboard-container {
+            display: block;
             width: 100%;
+            max-width: 650px;
+            margin: 60px auto 40px auto;
+            animation: dashboardFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .main-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 28px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.3);
+            padding: 35px;
+            box-sizing: border-box;
             border: 1px solid rgba(255, 255, 255, 0.4);
+            position: relative;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        h1 {
-            color: #8a4f6e;
-            font-size: 1.6rem;
-            letter-spacing: 1px;
-            margin-top: 0;
-            text-transform: uppercase;
+        /* --- TOP CONTROL ACTIONS BAR --- */
+        .top-action-bar {
+            display: flex;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            justify-content: space-between;
+            gap: 10px;
+            z-index: 100;
         }
 
-        .quote {
-            font-size: 1.15rem;
-            line-height: 1.6;
-            color: #4a4a4a;
-            font-style: italic;
-            margin: 20px 0;
+        .action-bar-buttons-left {
+            display: flex;
+            gap: 10px;
         }
 
-        .btn {
-            background-color: #8a4f6e;
+        .action-bar-btn {
             color: white;
             border: none;
-            padding: 12px 28px;
-            font-size: 1rem;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-            font-weight: 600;
-            box-shadow: 0 4px 10px rgba(138, 79, 110, 0.2);
-        }
-
-        .btn:hover {
-            background-color: #6b3a53;
-            transform: translateY(-1px);
-        }
-
-        #hidden-message {
-            display: none;
-            margin-top: 25px;
-            padding: 18px;
-            background-color: rgba(255, 240, 243, 0.8);
-            border-left: 4px solid #8a4f6e;
-            border-radius: 8px;
-            text-align: left;
-            animation: fadeIn 0.6s ease forwards;
-        }
-
-        /* Audio Player Styling */
-        .audio-container {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .audio-controls {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .volume-label {
+            padding: 10px 18px;
             font-size: 0.85rem;
-            color: #666;
-            font-weight: 500;
-        }
-
-        /* Styling the volume slider */
-        input[type="range"] {
-            -webkit-appearance: none;
-            width: 120px;
-            height: 6px;
-            background: #e0e0e0;
-            border-radius: 5px;
-            outline: none;
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            background: #8a4f6e;
+            font-weight: 700;
+            border-radius: 20px;
             cursor: pointer;
-            transition: transform 0.1s;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
-        input[type="range"]::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
+        #panic-trigger-btn {
+            background: rgba(255, 77, 109, 0.95);
+            box-shadow: 0 4px 12px rgba(255,77,109,0.3);
+        }
+        #panic-trigger-btn:hover { background: #e03a5a; transform: translateY(-1px); }
+
+        #top-horror-btn {
+            background: rgba(26, 26, 26, 0.95);
+            border: 1px solid #333;
+        }
+        #top-horror-btn:hover { background: #000000; color: #ff4d6d; transform: translateY(-1px); }
+
+        #top-void-btn {
+            background: rgba(138, 79, 110, 0.95);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        #top-void-btn:hover { background: #6b3a53; transform: translateY(-1px); }
+
+        /* --- FULLSCREEN OVERLAY SCREENS --- */
+        .fullscreen-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+            animation: dashboardFadeIn 0.5s ease forwards;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+        #breathing-overlay { background: rgba(20, 15, 20, 0.95); }
+        #void-overlay { background: rgba(10, 10, 12, 0.98); }
+
+        .breathing-circle-container {
+            width: 250px; height: 250px;
+            display: flex; justify-content: center; align-items: center;
+            position: relative; margin-bottom: 40px;
+        }
+
+        .breathing-circle {
+            width: 100px; height: 100px;
+            background: rgba(138, 79, 110, 0.6);
+            border-radius: 50%;
+            box-shadow: 0 0 40px #8a4f6e;
+            animation: breatheAnimation 8s infinite ease-in-out;
+        }
+
+        #breathing-guide-text {
+            position: absolute;
+            font-size: 1.3rem; font-weight: 600; letter-spacing: 0.5px;
+            animation: guideTextAnimation 8s infinite ease-in-out;
+        }
+
+        /* --- THE VOID OVERLAY SCREEN --- */
+        .void-card { width: 100%; max-width: 500px; text-align: center; }
+        .void-card h2 { color: #ff4d6d; font-size: 1.6rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .void-card p { color: #aaa; font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; }
+        .void-textarea {
+            width: 100%; height: 150px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px; padding: 20px; box-sizing: border-box; color: white; font-family: inherit; font-size: 1rem;
+            resize: none; outline: none; margin-bottom: 20px; box-shadow: inset 0 4px 12px rgba(0,0,0,0.5); transition: all 0.4s ease;
+        }
+        .void-action-btn { background: #ff4d6d; color: white; border: none; padding: 12px 30px; font-size: 0.95rem; font-weight: 700; border-radius: 25px; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4); transition: all 0.2s; text-transform: uppercase; }
+        .void-action-btn:hover { background: #e03a5a; transform: scale(1.02); }
+
+        .close-overlay-btn {
+            background: transparent; border: 1px solid rgba(255, 255, 255, 0.4); color: rgba(255, 255, 255, 0.7);
+            padding: 8px 20px; font-size: 0.85rem; border-radius: 20px; cursor: pointer; margin-top: 30px; font-weight: 600; transition: all 0.2s;
+        }
+        .close-overlay-btn:hover { border-color: white; color: white; }
+
+        /* --- INTERACTIVE MOOD SELECTOR --- */
+        .mood-section { background: rgba(138, 79, 110, 0.05); padding: 15px; border-radius: 16px; margin-bottom: 25px; text-align: center; }
+        .mood-title { font-size: 0.85rem; font-weight: 700; color: #8a4f6e; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.5px; }
+        .mood-buttons { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+        .mood-btn { background: white; border: 1px solid rgba(0,0,0,0.08); padding: 6px 14px; font-size: 0.85rem; border-radius: 20px; cursor: pointer; font-weight: 600; color: #555; transition: all 0.2s ease; }
+        .mood-btn:hover { background: #8a4f6e; color: white; transform: translateY(-1px); }
+
+        #mood-feedback { display: none; font-style: italic; font-size: 0.95rem; color: #6b3a53; margin-top: 12px; line-height: 1.4; padding: 0 10px; animation: panelFadeIn 0.4s ease forwards; }
+
+        /* Tabs menu at the top */
+        .tabs-menu { display: flex; justify-content: space-between; gap: 4px; margin-bottom: 25px; border-bottom: 1px solid rgba(0, 0, 0, 0.06); padding-bottom: 10px; overflow-x: auto; }
+        .tab-btn { background: none; border: none; padding: 8px 12px; font-size: 0.85rem; font-weight: 700; color: #777777; cursor: pointer; border-radius: 10px; transition: all 0.3s ease; white-space: nowrap; }
+        .tab-btn.active { background-color: rgba(138, 79, 110, 0.12); color: #8a4f6e; }
+
+        /* Dynamic Panel Layout */
+        .content-panel { display: none; animation: panelFadeIn 0.5s ease forwards; flex-grow: 1; margin-bottom: 25px; }
+        .content-panel.active { display: flex; flex-direction: column; justify-content: flex-start; }
+        .content-panel h2 { color: #8a4f6e; font-size: 1.4rem; margin-top: 0; margin-bottom: 12px; }
+        .content-panel p { font-size: 1rem; line-height: 1.7; color: #444444; margin-top: 0; margin-bottom: 15px; }
+
+        /* --- TINY WIN SECTION --- */
+        .win-box { background: rgba(255, 240, 243, 0.8); border: 1px dashed rgba(138, 79, 110, 0.3); padding: 15px; border-radius: 14px; margin-bottom: 25px; text-align: center; }
+        #win-text { font-size: 0.95rem; font-weight: 600; color: #333; margin-bottom: 10px; }
+        .win-btn { background: white; border: 1px solid #8a4f6e; color: #8a4f6e; padding: 6px 16px; font-size: 0.8rem; border-radius: 15px; cursor: pointer; font-weight: 700; transition: all 0.2s ease; }
+        .win-btn:hover { background: #8a4f6e; color: white; }
+
+        /* --- DIRECT ACTION COMMUNICATIONS BUTTON --- */
+        .contact-action-btn { background: #25d366; color: white; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; border-radius: 20px; font-weight: 700; font-size: 0.95rem; box-shadow: 0 4px 12px rgba(37,211,102,0.25); margin-top: 15px; width: fit-content; transition: all 0.2s ease; }
+        .contact-action-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(37,211,102,0.35); }
+
+        /* Footer layout */
+        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 15px; gap: 10px; }
+        .next-panel-btn { background-color: #8a4f6e; color: white; border: none; padding: 12px 24px; font-size: 0.9rem; border-radius: 20px; cursor: pointer; transition: all 0.3s ease; font-weight: 600; box-shadow: 0 4px 12px rgba(138, 79, 110, 0.2); white-space: nowrap; }
+        .next-panel-btn:hover { background-color: #6b3a53; transform: translateY(-1px); }
+
+        /* --- ANIMATIONS --- */
+        @keyframes dashboardFadeIn { from { opacity: 0; transform: translateY(30px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes panelFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        @keyframes breatheAnimation {
+            0%, 100% { transform: scale(1); background: rgba(138, 79, 110, 0.5); }
+            50% { transform: scale(2.2); background: rgba(255, 77, 109, 0.6); box-shadow: 0 0 60px #ff4d6d; }
+        }
+        @keyframes guideTextAnimation {
+            0%, 100% { content: "Exhale..."; opacity: 0.6; }
+            45%, 55% { content: "Inhale..."; opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .tabs-menu { gap: 2px; }
+            .tab-btn { padding: 6px 8px; font-size: 0.8rem; }
+            .top-action-bar { position: relative; top: 0; left: 0; right: 0; width: 100%; margin-bottom: 15px; flex-direction: column; gap: 8px; }
+            .action-bar-buttons-left { width: 100%; }
+            #top-horror-btn, #top-void-btn { flex: 1; justify-content: center; }
+            .dashboard-container { margin-top: 20px; }
+            .card-footer { flex-direction: column; gap: 12px; }
+            .next-panel-btn { width: 100%; text-align: center; }
         }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <h1>Hey, just a little reminder...</h1>
-        <p class="quote">"You are allowed to feel everything you are feeling right now. Healing isn't a straight line, and you're doing incredibly well just by getting through today."</p>
-        
-        <button class="btn" onclick="showMessage()">Click here for a surprise</button>
-        
-        <div id="hidden-message">
-            <p><strong>Remember this:</strong> You are incredibly strong, intelligent, and loved. You don't have to carry everything on your own, and you don't have to have it all figured out today. Take a deep breath. I'm always here for you. ❤️</p>
+    <div class="top-action-bar" id="global-action-bar">
+        <div class="action-bar-buttons-left">
+            <a href="https://www.youtube.com/results?search_query=horror+romania" id="top-horror-btn" class="action-bar-btn" target="_blank">🎬 Horror Distraction</a>
+            <button id="top-void-btn" class="action-bar-btn" onclick="toggleVoidOverlay(true)">🌌 Enter The Void</button>
         </div>
+        <button id="panic-trigger-btn" class="action-bar-btn" onclick="toggleBreathingOverlay(true)">🚨 In Panic? Click Me</button>
+    </div>
 
-        <div class="audio-container">
-            <audio id="bg-music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" crossorigin="anonymous" loop></audio>
+    <div id="breathing-overlay" class="fullscreen-overlay">
+        <div class="breathing-circle-container">
+            <div class="breathing-circle"></div>
+            <div id="breathing-guide-text">Inhale...</div>
+        </div>
+        <p style="text-align: center; max-width: 300px; line-height: 1.5; font-size: 0.95rem; opacity: 0.8; margin-bottom: 25px;">Match your breathing to the expanding circle. Take slow, even deep breaths.</p>
+        <button class="close-overlay-btn" onclick="toggleBreathingOverlay(false)">Close System</button>
+    </div>
+
+    <div id="void-overlay" class="fullscreen-overlay">
+        <div class="void-card">
+            <h2>The Void</h2>
+            <p>Is your head loud or spinning? Pour everything out into the text field below. Write the anger, the pain, or the confusion. When you click the button, it will be obliterated completely into nothingness.</p>
+            <textarea class="void-textarea" id="void-input-field" placeholder="Type out your heavy thoughts here..."></textarea>
+            <br>
+            <button class="void-action-btn" onclick="vaporizeThoughts()">Release to the Void</button>
+        </div>
+        <button class="close-overlay-btn" onclick="toggleVoidOverlay(false)">Return to Light</button>
+    </div>
+
+    <div id="final-dashboard" class="dashboard-container">
+        <div class="main-card">
             
-            <div class="audio-controls">
-                <button class="btn" style="padding: 8px 18px; font-size: 0.9rem; margin: 0;" onclick="toggleMusic()" id="play-btn">🎵 Play Music</button>
-                
-                <span class="volume-label">Vol:</span>
-                <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5" oninput="changeVolume(this.value)">
+            <div class="mood-section">
+                <div class="mood-title">How are you holding up right now?</div>
+                <div class="mood-buttons">
+                    <button class="mood-btn" onclick="selectMood('overwhelmed')">😞 Overwhelmed</button>
+                    <button class="mood-btn" onclick="selectMood('angry')">😠 Angry</button>
+                    <button class="mood-btn" onclick="selectMood('overthinking')">🧠 Overthinking</button>
+                    <button class="mood-btn" onclick="selectMood('exhausted')">🛌 Exhausted</button>
+                </div>
+                <div id="mood-feedback"></div>
             </div>
+
+            <div class="tabs-menu">
+                <button class="tab-btn active" id="tab0" onclick="switchPanel(0)">Reminder</button>
+                <button class="tab-btn" id="tab1" onclick="switchPanel(1)">Your Worth</button>
+                <button class="tab-btn" id="tab2" onclick="switchPanel(2)">Your Strength</button>
+                <button class="tab-btn" id="tab3" onclick="switchPanel(3)">Always Here</button>
+            </div>
+
+            <div class="content-panel active" id="panel0">
+                <h2>A Little Reminder</h2>
+                <p>First of all, I want you to take a deep, slow breath. Right here, in this exact moment, you don't have to have a single thing figured out. You don't need to worry about next week, next month, or even what happens tomorrow morning.</p>
+                <p>All you need to do right now is just focus on getting through the next hour. It is completely okay to feel heartbroken, angry, confused, or just entirely exhausted. Let yourself feel it all.</p>
+            </div>
+
+            <div class="content-panel" id="panel1">
+                <h2>Your Worth</h2>
+                <p>Please never, ever let this situation make you doubt your worth or who you are. The way someone else chose to walk away, or the way they handled things, is a reflection of their own character and limitations—it has absolutely nothing to do with you.</p>
+                <p>You are still the exact same incredible, intelligent, beautiful, and deeply caring person you have always been. A single closed chapter doesn't erase the incredible story you are still writing.</p>
+            </div>
+
+            <div class="content-panel" id="panel2">
+                <h2>Your Strength</h2>
+                <p>You have survived 100% of your hardest days up to this point. Think about that for a second. Even on the days when you felt completely shattered, or like you couldn't possibly get out of bed, you made it through.</p>
+                <p>That incredible resilience is alive inside you right now, even if you feel entirely drained. Be proud of yourself for simply existing and breathing through the noise today.</p>
+            </div>
+
+            <div class="content-panel" id="panel3">
+                <h2>Always Here</h2>
+                <p>You never have to carry this heavy weight entirely on your own shoulders. You are surrounded by people who love you, value your presence, and want nothing more than to see you smile safely again.</p>
+                <p>Whenever you want to scream, cry, laugh, or just sit in complete silence without talking about it at all, I am right here. You are never a burden to me. I've always got your back. ❤️</p>
+                
+                <a href="https://wa.me/#" class="contact-action-btn" target="_blank">💬 Message Me Right Now</a>
+            </div>
+
+            <div class="win-box">
+                <div id="win-text">Need a tiny direction for right now?</div>
+                <button class="win-btn" onclick="generateTinyWin()">Give me a small win</button>
+            </div>
+
+            <div class="card-footer">
+                <span style="font-size: 0.8rem; color:#888; font-weight:600;">Take your time.</span>
+                <button class="next-panel-btn" id="footer-nav-btn" onclick="nextPanel()">Next Section →</button>
+            </div>
+
         </div>
     </div>
 
     <script>
-        // Toggle Hidden Message
-        function showMessage() {
-            var message = document.getElementById("hidden-message");
-            if (message.style.display === "none" || message.style.display === "") {
-                message.style.display = "block";
+        // --- DYNAMIC EMERGENCY PANIC OVERLAY SCRIPT HANDLE ---
+        var breathingTextElement = document.getElementById("breathing-guide-text");
+        var breathingInterval;
+
+        function toggleBreathingOverlay(open) {
+            var overlay = document.getElementById("breathing-overlay");
+            if (open) {
+                overlay.style.display = "flex";
+                var toggle = true;
+                breathingTextElement.innerText = "Inhale...";
+                breathingInterval = setInterval(function() {
+                    toggle = !toggle;
+                    breathingTextElement.innerText = toggle ? "Inhale..." : "Exhale...";
+                }, 4000); 
             } else {
-                message.style.display = "none";
+                overlay.style.display = "none";
+                clearInterval(breathingInterval);
             }
         }
 
-        // Audio Elements
-        var music = document.getElementById("bg-music");
-        var playBtn = document.getElementById("play-btn");
-
-        // Use a known public stream of the song for high reliability
-        music.src = "unforgettable.mp3";
-        
-        // Set initial volume to 50%
-        music.volume = 0.5;
-
-        function toggleMusic() {
-            if (music.paused) {
-                music.play().catch(function(error) {
-                    console.log("Playback failed:", error);
-                });
-                playBtn.innerText = "⏸ Pause";
+        // --- EXCLUSIVE SEPARATE VOID CONTROLLER ---
+        function toggleVoidOverlay(open) {
+            var overlay = document.getElementById("void-overlay");
+            if (open) {
+                overlay.style.display = "flex";
+                document.getElementById("void-input-field").focus();
             } else {
-                music.pause();
-                playBtn.innerText = "🎵 Play Music";
+                overlay.style.display = "none";
             }
         }
 
-        function changeVolume(amount) {
-            music.volume = amount;
+        function vaporizeThoughts() {
+            var input = document.getElementById("void-input-field");
+            if(input.value.trim() !== "") {
+                input.style.opacity = "0";
+                input.style.transform = "scale(0.8) translateY(-30px)";
+                input.style.filter = "blur(10px)";
+                
+                setTimeout(function() {
+                    input.value = "";
+                    input.style.opacity = "1";
+                    input.style.transform = "scale(1) translateY(0)";
+                    input.style.filter = "none";
+                    alert("Obliterated. Those thoughts no longer belong to you. Let them go.");
+                }, 600);
+            }
+        }
+
+        // --- MOOD SELECTION RESPONSES ---
+        function selectMood(mood) {
+            var feedback = document.getElementById("mood-feedback");
+            feedback.style.display = "block";
+            
+            if (mood === 'overwhelmed') {
+                feedback.innerText = '"It is completely okay if your only accomplishment today was just getting through it. Close your eyes, drop your shoulders, and take one big breath. You are safe right now."';
+            } else if (mood === 'angry') {
+                feedback.innerText = '"Let yourself feel mad. What happened was unfair. Go open the Void space button at the top left, dump it all out, and burn it."';
+            } else if (mood === 'overthinking') {
+                feedback.innerText = '"Your brain is spinning scenarios that do not exist to try and protect you. Come back to reality: click that Horror Distraction button at the top left and let a scary story clear your headspace."';
+            } else if (mood === 'exhausted') {
+                feedback.innerText = '"Heartbreak takes a massive physical toll. Your body is running on empty. Give yourself permission to do absolutely nothing. Rest, watch a comfort show, and sleep."';
+            }
+        }
+
+        // --- RANDOM SELECTION TINY WINS ---
+        var wins = [
+            "Drink a full glass of cold water right now. 💧",
+            "Go unlock a window and take 3 deep breaths of fresh air. 💨",
+            "Put on your absolute softest comfort hoodie or shirt. ☁️",
+            "Unclench your jaw, drop your shoulders, and relax your hands. 🧘‍♀️",
+            "Close your eyes and take 5 slow, silent deep breaths. 💆‍♀️",
+            "Send me a single emoji showing how you feel right now. No explanation needed. 💬"
+        ];
+
+        function generateTinyWin() {
+            var textElement = document.getElementById("win-text");
+            var randomWin = wins[Math.floor(Math.random() * wins.length)];
+            textElement.style.opacity = 0;
+            setTimeout(function() {
+                textElement.innerText = "Your tiny goal: " + randomWin;
+                textElement.style.opacity = 1;
+                textElement.style.animation = "panelFadeIn 0.3s ease";
+            }, 200);
+        }
+
+        // --- DASHBOARD CONTROL TABS SWITCH ---
+        var currentActiveIndex = 0;
+        var totalPanels = 4;
+
+        function switchPanel(index) {
+            document.getElementById("panel" + currentActiveIndex).classList.remove("active");
+            document.getElementById("tab" + currentActiveIndex).classList.remove("active");
+
+            currentActiveIndex = index;
+
+            document.getElementById("panel" + currentActiveIndex).className = "content-panel active";
+            document.getElementById("tab" + currentActiveIndex).className = "tab-btn active";
+
+            var footerBtn = document.getElementById("footer-nav-btn");
+            if (currentActiveIndex === totalPanels - 1) {
+                footerBtn.innerText = "Back to Start ↺";
+            } else {
+                footerBtn.innerText = "Next Section →";
+            }
+        }
+
+        function nextPanel() {
+            var targetIndex = currentActiveIndex + 1;
+            if (targetIndex >= totalPanels) {
+                targetIndex = 0;
+            }
+            switchPanel(targetIndex);
         }
     </script>
 
