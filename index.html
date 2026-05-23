@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Background image setup */
+            background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('roses.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Frosted glass effect for the card */
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 35px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            max-width: 480px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        h1 {
+            color: #8a4f6e;
+            font-size: 1.6rem;
+            letter-spacing: 1px;
+            margin-top: 0;
+            text-transform: uppercase;
+        }
+
+        .quote {
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: #4a4a4a;
+            font-style: italic;
+            margin: 20px 0;
+        }
+
+        .btn {
+            background-color: #8a4f6e;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(138, 79, 110, 0.2);
+        }
+
+        .btn:hover {
+            background-color: #6b3a53;
+            transform: translateY(-1px);
+        }
+
+        #hidden-message {
+            display: none;
+            margin-top: 25px;
+            padding: 18px;
+            background-color: rgba(255, 240, 243, 0.8);
+            border-left: 4px solid #8a4f6e;
+            border-radius: 8px;
+            text-align: left;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        /* Audio Player Styling */
+        .audio-container {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .volume-label {
+            font-size: 0.85rem;
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Styling the volume slider */
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 120px;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #8a4f6e;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>Hey, just a little reminder...</h1>
+        <p class="quote">"You are allowed to feel everything you are feeling right now. Healing isn't a straight line, and you're doing incredibly well just by getting through today."</p>
+        
+        <button class="btn" onclick="showMessage()">Click here for a surprise</button>
+        
+        <div id="hidden-message">
+            <p><strong>Remember this:</strong> You are incredibly strong, intelligent, and loved. You don't have to carry everything on your own, and you don't have to have it all figured out today. Take a deep breath. I'm always here for you. ❤️</p>
+        </div>
+
+        <div class="audio-container">
+            <audio id="bg-music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" crossorigin="anonymous" loop></audio>
+            
+            <div class="audio-controls">
+                <button class="btn" style="padding: 8px 18px; font-size: 0.9rem; margin: 0;" onclick="toggleMusic()" id="play-btn">🎵 Play Music</button>
+                
+                <span class="volume-label">Vol:</span>
+                <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5" oninput="changeVolume(this.value)">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle Hidden Message
+        function showMessage() {
+            var message = document.getElementById("hidden-message");
+            if (message.style.display === "none" || message.style.display === "") {
+                message.style.display = "block";
+            } else {
+                message.style.display = "none";
+            }
+        }
+
+        // Audio Elements
+        var music = document.getElementById("bg-music");
+        var playBtn = document.getElementById("play-btn");
+
+        // Use a known public stream of the song for high reliability
+        music.src = "https://pub-c5e31b5cdafb419a824e611812eb4a1b.r2.dev/French%20Montana%20-%20Unforgettable%20ft.%20Swae%20Lee.mp3";
+        
+        // Set initial volume to 50%
+        music.volume = 0.5;
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play().catch(function(error) {
+                    console.log("Playback failed:", error);
+                });
+                playBtn.innerText = "⏸ Pause";
+            } else {
+                music.pause();
+                playBtn.innerText = "🎵 Play Music";
+            }
+        }
+
+        function changeVolume(amount) {
+            music.volume = amount;
+        }
+    </script>
+
+</body>
+</html>
