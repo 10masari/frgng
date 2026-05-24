@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
 
     const webhook = process.env.DISCORD_WEBHOOK;
 
@@ -13,4 +13,4 @@ export default async function handler(req, res) {
     res.status(200).json({
         success: true
     });
-}
+};
