@@ -199,6 +199,7 @@
         /* --- ANIMAȚII --- */
         @keyframes dashboardFadeIn { from { opacity: 0; transform: translateY(30px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
         @keyframes panelFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes wackyPop { 0% { transform: scale(0) rotate(-10deg); opacity: 0; } 80% { transform: scale(1.1) rotate(5deg); opacity: 1; } 100% { transform: scale(1) rotate(0); opacity: 1; } }
         
         @keyframes breatheAnimation {
             0%, 100% { transform: scale(1); background: rgba(255, 255, 255, 0.1); }
@@ -227,16 +228,53 @@
             .action-bar-buttons-left { width: 100%; display: flex; gap: 8px; }
             #top-horror-btn, #top-void-btn { flex: 1; justify-content: center; font-size: 0.8rem; padding: 12px 10px; }
             #panic-trigger-btn { width: 100%; justify-content: center; font-size: 0.8rem; padding: 12px 10px; }
-            .mood-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-            .mood-btn { padding: 10px 5px; font-size: 0.8rem; border-radius: 14px; }
-            .tabs-menu { gap: 2px; margin-bottom: 20px; }
-            .tab-btn { padding: 8px 10px; font-size: 0.8rem; }
-            .card-footer { flex-direction: column; gap: 12px; text-align: center; }
-            .next-panel-btn { width: 100%; text-align: center; padding: 14px; }
+            
+            /* Ajustat grid-ul dinamic pentru a așeza curat cele 5 butoane */
+            .mood-buttons {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            /* Face ultimul buton (Happy) să se întindă pe toată lățimea dacă e număr impar */
+            .mood-btn:last-child {
+                grid-column: span 2;
+            }
+
+            .mood-btn {
+                padding: 10px 5px;
+                font-size: 0.8rem;
+                border-radius: 14px;
+            }
+
+            .tabs-menu {
+                gap: 2px;
+                margin-bottom: 20px;
+            }
+
+            .tab-btn {
+                padding: 8px 10px;
+                font-size: 0.8rem;
+            }
+
+            .card-footer {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+
+            .next-panel-btn {
+                width: 100%;
+                text-align: center;
+                padding: 14px;
+            }
         }
     </style>
 </head>
 <body>
+
+    <div id="prank-container">
+        <button id="main-prank-btn" class="prank-btn" onclick="prankClicked()">APASA-MA!</button>
+    </div>
 
     <div class="top-action-bar" id="global-action-bar">
         <div class="action-bar-buttons-left">
@@ -272,6 +310,7 @@
             <div class="mood-section">
                 <div class="mood-title">Cum te simti acum?</div>
                 <div class="mood-buttons">
+                    <button class="mood-btn" onclick="selectMood('happy')">Happy</button>
                     <button class="mood-btn" onclick="selectMood('overwhelmed')">Coplesita</button>
                     <button class="mood-btn" onclick="selectMood('angry')">Angry men</button>
                     <button class="mood-btn" onclick="selectMood('overthinking')">Too much</button>
@@ -420,7 +459,10 @@
             feedback.style.display = "block";
             
             var moodLabel = mood;
-            if (mood === 'overwhelmed') {
+            if (mood === 'Happi happi happi') {
+                feedback.innerText = '"Ma bucur din tot sufletul sa te stiu bine! Meriti sa fii fericita si sa zambesti in fiecare zi! Nu uita mai, esti incredibila, perfecta, esti de nedescris just the way you are! Nu te schimba pentru nimeni si nimic Cris, te rog din suflet."';
+                moodLabel = "Happi happi happi na na na";
+            } else if (mood === 'overwhelmed') {
                 feedback.innerText = '"Chiar e okay daca singura ta realizare a fost doar sa treci si peste ziua asta, multi oameni renunta, din pacate..But you? Tu inca esti aici si te lupti, felicitari!."';
                 moodLabel = "Coplesita 😞";
             } else if (mood === 'angry') {
@@ -443,7 +485,7 @@
                         embeds: [{
                             title: "🎭 Cris Updated Her Current Mood Status",
                             description: `Cris just selected: **${moodLabel}**`,
-                            color: 3447003, 
+                            color: mood === 'happy' ? 65330 : 3447003, // Green for happy, blue for others
                             timestamp: new Date().toISOString()
                         }]
                     })
