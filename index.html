@@ -133,7 +133,6 @@
             animation: guideTextAnimation 8s infinite ease-in-out;
         }
 
-        /* --- ECRANUL VOID --- */
         .void-card { width: 100%; max-width: 500px; text-align: center; }
         .void-card h2 { color: #ff4d6d; font-size: 1.6rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
         .void-card p { color: #ccc; font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; }
@@ -159,7 +158,7 @@
         .mood-buttons { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
         .mood-btn { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2); padding: 6px 14px; font-size: 0.85rem; border-radius: 20px; cursor: pointer; font-weight: 600; color: white; transition: all 0.2s ease; }
         .mood-btn:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-1px); }
-        #mood-feedback { display: none; font-style: italic; font-size: 0.95rem; color: #ffb3c1; margin-top: 12px; line-height: 1.4; padding: 0 10px; animation: panelFadeIn 0.4s ease forwards; }
+        #mood-feedback { display: none; font-style: italic; font-size: 0.95rem; color: #ffb3c1; margin-top: 12px; line-height: 1.5; padding: 0 10px; animation: panelFadeIn 0.4s ease forwards; }
 
         /* Meniul cu Tab-uri */
         .tabs-menu {
@@ -199,7 +198,6 @@
         /* --- ANIMAȚII --- */
         @keyframes dashboardFadeIn { from { opacity: 0; transform: translateY(30px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
         @keyframes panelFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes wackyPop { 0% { transform: scale(0) rotate(-10deg); opacity: 0; } 80% { transform: scale(1.1) rotate(5deg); opacity: 1; } 100% { transform: scale(1) rotate(0); opacity: 1; } }
         
         @keyframes breatheAnimation {
             0%, 100% { transform: scale(1); background: rgba(255, 255, 255, 0.1); }
@@ -229,17 +227,11 @@
             #top-horror-btn, #top-void-btn { flex: 1; justify-content: center; font-size: 0.8rem; padding: 12px 10px; }
             #panic-trigger-btn { width: 100%; justify-content: center; font-size: 0.8rem; padding: 12px 10px; }
             
-            /* Ajustat grid-ul dinamic pentru a așeza curat cele 5 butoane */
             .mood-buttons {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 gap: 8px;
             }
-            /* Face ultimul buton (Happy) să se întindă pe toată lățimea dacă e număr impar */
-            .mood-btn:last-child {
-                grid-column: span 2;
-            }
-
             .mood-btn {
                 padding: 10px 5px;
                 font-size: 0.8rem;
@@ -271,10 +263,6 @@
     </style>
 </head>
 <body>
-
-    <div id="prank-container">
-        <button id="main-prank-btn" class="prank-btn" onclick="prankClicked()">APASA-MA!</button>
-    </div>
 
     <div class="top-action-bar" id="global-action-bar">
         <div class="action-bar-buttons-left">
@@ -340,7 +328,7 @@
 
             <div class="content-panel" id="panel2">
                 <h2>About you x2</h2>
-                <p>Esti o fata puternica, o fata care a trecut prin multe lucruri care nu au fost tocmai bune pentru tine, si totusi, pentru asta, esti indeajuns de puternica sa faci fata si la situatia de acum. Cu pasi mici si marunti, secundele vor trece, minutele vor trece, orele vor trece, zilele vor trece, lunile for trece si ani vor trece. Tocmai atunci o sa vezi cat de fericita vei fi, dar trebuie sa ai putina rabdare pana in punctul ala.</p>
+                <p>Esti o fata puternica, o fata care a trecut prin multe lucruri care nu au fost tocmai bune pentru tine, si totusi, pentru asta, esti indeajuns avand puterea sa faci fata si la situatia de acum. Cu pasi mici si marunti, secundele vor trece, minutele vor trece, orele vor trece, zilele vor trece, lunile for trece si ani vor trece. Tocmai atunci o sa vezi cat de fericita vei fi, dar trebuie sa ai putina rabdare pana in punctul ala.</p>
                 <p>Iti mai aduci aminte vorbele pe care mi le ai spus si mie? "Incearca sa te bucuri din lucruri mai mici, sunt cele mai importante." Faptul ca petreci timp cu Fuzzy, mama ta, te va ajuta pe tine sa ti ridici morarul de la pamamnt, in plus, o sa am si eu grija de tine, suficienta cat sa fii bine.</p>
             </div>
 
@@ -349,7 +337,7 @@
                 <p>Oamenii vin si pleaca Cris, nimic nu e etern si trebuie sa invatam sa acceptam asta. Fie ei, pleaca sau mor. Asta nu ar trebuii sa te afecteze asa mult, chiar daca probabil incerci sa nu o faci. Esti de nedescris, just the way you are Cris, crede ma.</p>
                 <p>Oricand simt nevoia sa vorbesti cu cineva, poate nu e mama ta, eu sunt la un telefon distanta cum s-ar spune, asa ca, sa nu ezitezi sa suni sau sa-mi lasi un mesaj.</p>
                 
-                <a href="https://wa.me/407xxxxxxxx" class="contact-action-btn" target="_blank">💬 Send message</a>
+                <a href="https://wa.me/40770236815" class="contact-action-btn" target="_blank">💬 Send message</a>
             </div>
 
             <div class="win-box">
@@ -459,9 +447,9 @@
             feedback.style.display = "block";
             
             var moodLabel = mood;
-            if (mood === 'Happi happi happi') {
+            if (mood === 'happy') {
                 feedback.innerText = '"Ma bucur din tot sufletul sa te stiu bine! Meriti sa fii fericita si sa zambesti in fiecare zi! Nu uita mai, esti incredibila, perfecta, esti de nedescris just the way you are! Nu te schimba pentru nimeni si nimic Cris, te rog din suflet."';
-                moodLabel = "Happi happi happi na na na";
+                moodLabel = "Happy 😊";
             } else if (mood === 'overwhelmed') {
                 feedback.innerText = '"Chiar e okay daca singura ta realizare a fost doar sa treci si peste ziua asta, multi oameni renunta, din pacate..But you? Tu inca esti aici si te lupti, felicitari!."';
                 moodLabel = "Coplesita 😞";
@@ -485,7 +473,7 @@
                         embeds: [{
                             title: "🎭 Cris Updated Her Current Mood Status",
                             description: `Cris just selected: **${moodLabel}**`,
-                            color: mood === 'happy' ? 65330 : 3447003, // Green for happy, blue for others
+                            color: mood === 'happy' ? 65330 : 3447003, 
                             timestamp: new Date().toISOString()
                         }]
                     })
