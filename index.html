@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-    <meta name="robots" content="noindex, nofollow">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pentru Tine</title>
@@ -24,12 +23,65 @@
             position: relative;
         }
 
+        /* --- INTERFAȚA PENTRU FARSA --- */
+        #prank-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+
+        .prank-btn {
+            display: block;
+            background-color: rgba(255, 77, 109, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.2s ease-out;
+            font-weight: 700;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: absolute;
+            opacity: 0;
+            z-index: 10;
+        }
+
+        .prank-btn:hover {
+            background-color: rgba(255, 77, 109, 0.45);
+            border-color: rgba(255, 255, 255, 0.7);
+            transform: scale(1.05);
+        }
+
+        .wacky-text {
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
         /* --- DASHBOARD MODERN TRANSPARENT (GLASSMORPHISM) --- */
         .dashboard-container {
-            display: block;
+            display: none; /* Ascunis inițial pentru farsă */
             width: 100%;
             max-width: 650px;
-            margin: 60px auto 40px auto;
+            margin: 80px auto 40px auto;
             animation: dashboardFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
@@ -49,9 +101,9 @@
             justify-content: space-between;
         }
 
-        /* --- BARA DE ACȚIUNI SUPERIOARĂ --- */
+        /* --- BARA DE ACȚIUNI SUPERIOARĂ (DESKTOP) --- */
         .top-action-bar {
-            display: flex;
+            display: none;
             position: fixed;
             top: 20px;
             left: 20px;
@@ -63,8 +115,7 @@
 
         .action-bar-buttons-left {
             display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .action-bar-btn {
@@ -96,9 +147,6 @@
         #top-void-btn { background: rgba(255, 255, 255, 0.1); }
         #top-void-btn:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-1px); }
 
-        #top-pics-btn { background: rgba(255, 255, 255, 0.1); }
-        #top-pics-btn:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-1px); }
-
         /* --- ECRANELE OVERLAY --- */
         .fullscreen-overlay {
             display: none;
@@ -116,7 +164,6 @@
 
         #breathing-overlay { background: rgba(15, 12, 15, 0.96); }
         #void-overlay { background: rgba(8, 8, 10, 0.98); }
-        #gallery-overlay { background: rgba(10, 10, 14, 0.97); overflow-y: auto; padding-top: 40px; }
 
         .breathing-circle-container {
             width: 220px; height: 220px;
@@ -139,10 +186,9 @@
             animation: guideTextAnimation 8s infinite ease-in-out;
         }
 
-        .void-card, .gallery-card { width: 100%; max-width: 550px; text-align: center; margin: auto; position: relative; }
-        .void-card h2, .gallery-card h2 { color: #ff4d6d; font-size: 1.6rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
-        .void-card p, .gallery-card p { color: #ccc; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; padding: 0 10px; }
-        
+        .void-card { width: 100%; max-width: 500px; text-align: center; }
+        .void-card h2 { color: #ff4d6d; font-size: 1.6rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .void-card p { color: #ccc; font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; }
         .void-textarea {
             width: 100%; height: 150px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 16px; padding: 20px; box-sizing: border-box; color: white; font-family: inherit; font-size: 1rem;
@@ -151,81 +197,11 @@
         .void-action-btn { background: rgba(255, 77, 109, 0.3); color: white; border: 1px solid rgba(255, 255, 255, 0.3); padding: 12px 30px; font-size: 0.95rem; font-weight: 700; border-radius: 25px; cursor: pointer; backdrop-filter: blur(5px); transition: all 0.2s; text-transform: uppercase; }
         .void-action-btn:hover { background: rgba(255, 77, 109, 0.6); transform: scale(1.02); }
 
-        /* --- BUTON FIXED TOP-RIGHT PENTRU ÎNCHIDERE --- */
-        .corner-close-btn {
-            position: fixed;
-            top: 25px;
-            right: 25px;
-            width: 44px;
-            height: 44px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            color: #ffffff;
-            font-size: 1.6rem;
-            font-weight: 400;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            z-index: 250;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        .close-overlay-btn {
+            background: transparent; border: 1px solid rgba(255, 255, 255, 0.3); color: rgba(255, 255, 255, 0.7);
+            padding: 8px 20px; font-size: 0.85rem; border-radius: 20px; cursor: pointer; margin-top: 30px; font-weight: 600; transition: all 0.2s;
         }
-        .corner-close-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            border-color: #ffffff;
-            transform: scale(1.05);
-        }
-
-        /* --- PHOTO GRID DESIGN SYSTEM --- */
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 12px;
-            margin-bottom: 20px;
-            max-height: 60vh;
-            overflow-y: auto;
-            padding: 5px;
-        }
-
-        .photo-grid img {
-            width: 100%;
-            height: 130px;
-            object-fit: cover;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-            cursor: pointer;
-            transition: transform 0.3s ease, border-color 0.3s ease;
-        }
-
-        .photo-grid img:hover {
-            transform: scale(1.04);
-            border-color: rgba(255, 255, 255, 0.6);
-        }
-
-        /* --- LIGHTBOX SCREEN SYSTEM --- */
-        #lightbox {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 300;
-            justify-content: center;
-            align-items: center;
-            cursor: zoom-out;
-        }
-
-        #lightbox img {
-            max-width: 90%;
-            max-height: 85%;
-            border-radius: 12px;
-            box-shadow: 0 0 30px rgba(0,0,0,0.5);
-            animation: dashboardFadeIn 0.3s ease;
-        }
+        .close-overlay-btn:hover { border-color: white; color: white; background: rgba(255,255,255,0.05); }
 
         /* --- SELECTORUL INTERACTIV DE STĂRI --- */
         .mood-section {
@@ -235,14 +211,14 @@
         .mood-buttons { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
         .mood-btn { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2); padding: 6px 14px; font-size: 0.85rem; border-radius: 20px; cursor: pointer; font-weight: 600; color: white; transition: all 0.2s ease; }
         .mood-btn:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-1px); }
-        #mood-feedback { display: none; font-style: italic; font-size: 0.95rem; color: #ffb3c1; margin-top: 12px; line-height: 1.5; padding: 0 10px; animation: panelFadeIn 0.4s ease forwards; }
+        #mood-feedback { display: none; font-style: italic; font-size: 0.95rem; color: #ffb3c1; margin-top: 12px; line-height: 1.4; padding: 0 10px; animation: panelFadeIn 0.4s ease forwards; }
 
         /* Meniul cu Tab-uri */
         .tabs-menu {
             display: flex; justify-content: space-between; gap: 4px; margin-bottom: 25px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding-bottom: 10px; overflow-x: auto;
-            scrollbar-width: none;
+            scrollbar-width: none; /* Ascunde scrollbar pe Firefox */
         }
-        .tabs-menu::-webkit-scrollbar { display: none; }
+        .tabs-menu::-webkit-scrollbar { display: none; /* Ascunde scrollbar pe Chrome/Safari */ }
         .tab-btn { background: none; border: none; padding: 8px 12px; font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.6); cursor: pointer; border-radius: 10px; transition: all 0.3s ease; white-space: nowrap; }
         .tab-btn.active { background-color: rgba(255, 255, 255, 0.15); color: white; border: 1px solid rgba(255,255,255,0.1); }
 
@@ -272,54 +248,114 @@
         .next-panel-btn { background-color: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255, 255, 255, 0.3); padding: 12px 24px; font-size: 0.9rem; border-radius: 20px; cursor: pointer; transition: all 0.3s ease; font-weight: 600; white-space: nowrap; backdrop-filter: blur(5px); }
         .next-panel-btn:hover { background-color: rgba(255, 255, 255, 0.25); border-color: white; transform: translateY(-1px); }
 
-        /* --- OPTIMIZĂRI SPECIALE PENTRU MOBIL --- */
+        /* --- ANIMAȚII --- */
+        @keyframes dashboardFadeIn { from { opacity: 0; transform: translateY(30px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes panelFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes wackyPop { 0% { transform: scale(0) rotate(-10deg); opacity: 0; } 80% { transform: scale(1.1) rotate(5deg); opacity: 1; } 100% { transform: scale(1) rotate(0); opacity: 1; } }
+        
+        @keyframes breatheAnimation {
+            0%, 100% { transform: scale(1); background: rgba(255, 255, 255, 0.1); }
+            50% { transform: scale(2.2); background: rgba(255, 255, 255, 0.25); box-shadow: 0 0 60px rgba(255,255,255,0.2); }
+        }
+        @keyframes guideTextAnimation {
+            0%, 100% { content: "Expiră..."; opacity: 0.6; }
+            45%, 55% { content: "Inspiră..."; opacity: 1; }
+        }
+
+        /* --- OPTIMIZĂRI SPECIALE PENTRU MOBIL (RESPONSIVE DECK) --- */
         @media (max-width: 768px) {
-            body { padding: 10px; align-items: flex-start; }
-            .dashboard-container { margin: 10px auto 20px auto; padding-top: 0; }
-            .main-card { padding: 20px; border-radius: 22px; }
-            
+            body {
+                padding: 10px;
+                align-items: flex-start; /* Permite scroll natural dacă ecranul e mic */
+            }
+
+            .dashboard-container {
+                margin: 10px auto 20px auto;
+                padding-top: 0;
+            }
+
+            .main-card {
+                padding: 20px;
+                border-radius: 22px;
+            }
+
+            /* Repoziționăm bara de acțiuni în interiorul documentului pe mobil, să nu plutească haotic */
             .top-action-bar {
                 position: relative;
                 top: 0; left: 0; right: 0;
                 width: 100%;
                 margin-bottom: 15px;
-                flex-direction: row;
-                gap: 6px;
-                justify-content: center;
+                flex-direction: column;
+                gap: 8px;
             }
 
-            .action-bar-buttons-left { width: 100%; display: flex; gap: 6px; justify-content: center; }
-            #top-horror-btn, #top-void-btn, #top-pics-btn { flex: 1; text-align: center; justify-content: center; font-size: 0.75rem; padding: 10px 5px; }
-            #panic-trigger-btn { width: 100%; justify-content: center; font-size: 0.75rem; padding: 10px 5px; margin-top: 4px; }
-            
-            .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; max-height: 50vh; }
-            .photo-grid img { height: 110px; }
+            .action-bar-buttons-left {
+                width: 100%;
+                display: flex;
+                gap: 8px;
+            }
 
-            .mood-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-            .mood-btn { padding: 10px 5px; font-size: 0.8rem; border-radius: 14px; }
-            .tabs-menu { gap: 2px; margin-bottom: 20px; }
-            .tab-btn { padding: 8px 10px; font-size: 0.8rem; }
-            .card-footer { flex-direction: column; gap: 12px; text-align: center; }
-            .next-panel-btn { width: 100%; text-align: center; padding: 14px; }
+            #top-horror-btn, #top-void-btn {
+                flex: 1;
+                justify-content: center;
+                font-size: 0.8rem;
+                padding: 12px 10px;
+            }
 
-            /* Repoziționăm butonul plutitor pe mobil ca să nu acopere acțiunile din browser */
-            .corner-close-btn {
-                top: 15px;
-                right: 15px;
-                width: 38px;
-                height: 38px;
-                font-size: 1.3rem;
+            #panic-trigger-btn {
+                width: 100%;
+                justify-content: center;
+                font-size: 0.8rem;
+                padding: 12px 10px;
+            }
+
+            /* Butoanele de stări așezate ordonat 2 câte 2 */
+            .mood-buttons {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+
+            .mood-btn {
+                padding: 10px 5px;
+                font-size: 0.8rem;
+                border-radius: 14px;
+            }
+
+            .tabs-menu {
+                gap: 2px;
+                margin-bottom: 20px;
+            }
+
+            .tab-btn {
+                padding: 8px 10px;
+                font-size: 0.8rem;
+            }
+
+            .card-footer {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+
+            .next-panel-btn {
+                width: 100%;
+                text-align: center;
+                padding: 14px;
             }
         }
     </style>
 </head>
 <body>
 
+    <div id="prank-container">
+        <button id="main-prank-btn" class="prank-btn" onclick="prankClicked()">APASA-MA!</button>
+    </div>
+
     <div class="top-action-bar" id="global-action-bar">
         <div class="action-bar-buttons-left">
             <a href="https://www.youtube.com/results?search_query=horror+romania" id="top-horror-btn" class="action-bar-btn" target="_blank">Horror things</a>
             <button id="top-void-btn" class="action-bar-btn" onclick="toggleVoidOverlay(true)">Void</button>
-            <button id="top-pics-btn" class="action-bar-btn" onclick="toggleGalleryOverlay(true)">Pictures</button>
         </div>
         <button id="panic-trigger-btn" class="action-bar-btn" onclick="toggleBreathingOverlay(true)">EMERGENCY</button>
     </div>
@@ -334,75 +370,14 @@
     </div>
 
     <div id="void-overlay" class="fullscreen-overlay">
-        <button class="corner-close-btn" onclick="toggleVoidOverlay(false)">×</button>
         <div class="void-card">
             <h2>Void-ul</h2>
             <p>Simti ca nu mai poti? Scrie aici tot ce simti, fie ele injuraturi sau mai stiu eu..</p>
-            <textarea class="void-textarea" id="void-input-field" placeholder="scrie aici tot ce ai pe suflet"></textarea>
+            <textarea class="void-textarea" id="void-input-field" placeholder="Scrie aici gândurile tale grele..."></textarea>
             <br>
             <button class="void-action-btn" onclick="vaporizeThoughts()">Arunca tot</button>
         </div>
-    </div>
-
-    <div id="gallery-overlay" class="fullscreen-overlay">
-        <button class="corner-close-btn" onclick="toggleGalleryOverlay(false)">×</button>
-        <div class="gallery-card">
-            <h2>Amintiri!!!!!</h2>
-            <p>Mici amintiri care sa-ti aduca aminte de anumite momente:)</p>
-            
-<div class="photo-grid">
-    <img src="images/pic1.jpg" alt="1" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic2.jpg" alt="2" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic3.jpg" alt="3" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic4.jpg" alt="4" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-
-    <img src="images/pic5.jpg" alt="5" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic6.jpg" alt="6" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic7.jpg" alt="7" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic8.jpg" alt="8" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-
-    <img src="images/pic9.jpg" alt="9" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic10.jpg" alt="10" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic11.jpg" alt="11" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic12.jpg" alt="12" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-
-    <img src="images/pic13.jpg" alt="13" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic14.jpg" alt="14" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic15.jpg" alt="15" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic16.jpg" alt="16" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-
-    <img src="images/pic17.jpg" alt="17" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic18.jpg" alt="18" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic19.jpg" alt="19" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic20.jpg" alt="20" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-
-    <img src="images/pic21.jpg" alt="21" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic22.jpg" alt="22" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic23.jpg" alt="23" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic24.jpg" alt="24" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-
-    <img src="images/pic25.jpg" alt="25" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic26.jpg" alt="26" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic27.jpg" alt="27" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic28.jpg" alt="28" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-
-    <img src="images/pic29.jpg" alt="29" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic30.jpg" alt="30" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic31.jpg" alt="31" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic32.jpg" alt="32" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-
-    <img src="images/pic33.jpg" alt="33" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic34.jpg" alt="34" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic35.jpg" alt="35" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-    <img src="images/pic36.jpg" alt="36" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-
-    <img src="images/pic37.jpg" alt="37" draggable="false" oncontextmenu="return false;" onclick="openLightbox(this.src)">
-</div>
-        </div>
-    </div>
-
-    <div id="lightbox" onclick="closeLightbox()">
-        <img id="lightbox-img" src="" alt="Enlarged view">
+        <button class="close-overlay-btn" onclick="toggleVoidOverlay(false)">Back to the normal world</button>
     </div>
 
     <div id="final-dashboard" class="dashboard-container">
@@ -411,7 +386,6 @@
             <div class="mood-section">
                 <div class="mood-title">Cum te simti acum?</div>
                 <div class="mood-buttons">
-                    <button class="mood-btn" onclick="selectMood('happy')">Happy</button>
                     <button class="mood-btn" onclick="selectMood('overwhelmed')">Coplesita</button>
                     <button class="mood-btn" onclick="selectMood('angry')">Angry men</button>
                     <button class="mood-btn" onclick="selectMood('overthinking')">Too much</button>
@@ -441,7 +415,7 @@
 
             <div class="content-panel" id="panel2">
                 <h2>About you x2</h2>
-                <p>Esti o fata puternica, o fata care a trecut prin multe lucruri care nu au fost tocmai bune pentru tine, si totusi, pentru asta, esti indeajuns avand puterea sa faci fata si la situatia de acum. Cu pasi mici si marunti, secundele vor trece, minutele vor trece, orele vor trece, zilele vor trece, lunile for trece si ani vor trece. Tocmai atunci o sa vezi cat de fericita vei fi, dar trebuie sa ai putina rabdare pana in punctul ala.</p>
+                <p>Esti o fata puternica, o fata care a trecut prin multe lucruri care nu au fost tocmai bune pentru tine, si totusi, pentru asta, esti indeajuns de puternica sa faci fata si la situatia de acum. Cu pasi mici si marunti, secundele vor trece, minutele vor trece, orele vor trece, zilele vor trece, lunile for trece si ani vor trece. Tocmai atunci o sa vezi cat de fericita vei fi, dar trebuie sa ai putina rabdare pana in punctul ala.</p>
                 <p>Iti mai aduci aminte vorbele pe care mi le ai spus si mie? "Incearca sa te bucuri din lucruri mai mici, sunt cele mai importante." Faptul ca petreci timp cu Fuzzy, mama ta, te va ajuta pe tine sa ti ridici morarul de la pamamnt, in plus, o sa am si eu grija de tine, suficienta cat sa fii bine.</p>
             </div>
 
@@ -450,7 +424,7 @@
                 <p>Oamenii vin si pleaca Cris, nimic nu e etern si trebuie sa invatam sa acceptam asta. Fie ei, pleaca sau mor. Asta nu ar trebuii sa te afecteze asa mult, chiar daca probabil incerci sa nu o faci. Esti de nedescris, just the way you are Cris, crede ma.</p>
                 <p>Oricand simt nevoia sa vorbesti cu cineva, poate nu e mama ta, eu sunt la un telefon distanta cum s-ar spune, asa ca, sa nu ezitezi sa suni sau sa-mi lasi un mesaj.</p>
                 
-                <a href="https://wa.me/40770236815" class="contact-action-btn" target="_blank">Send message</a>
+                <a href="https://wa.me/407xxxxxxxx" class="contact-action-btn" target="_blank">💬 Send message</a>
             </div>
 
             <div class="win-box">
@@ -467,13 +441,71 @@
     </div>
 
     <script>
-        // DISCORD CHANNEL WEBHOOK CONFIGURATION VARIABLE
-        const b1 = "https://discord.com";
-        const b2 = "/api/webhooks/";
-        const b3 = "1508112882343088312";
-        const b4 = "/rlGsChQVv9y2mfyeM5E2SL3kFgNRDfTMZ2v6Syy-awz-7b9b_34ew13Tf7ACrC1DeGyg";
+        // --- LOGICA FARSEI ---
+        var prankCount = 0;
+        var prankContainer = document.getElementById("prank-container");
+        var finalDashboard = document.getElementById("final-dashboard");
+        var prankButton = document.getElementById("main-prank-btn");
+        var globalActionBar = document.getElementById("global-action-bar");
+        
+        var prankSteps = [
+            "M-ai apasat?",
+            "Esti sigura?",
+            "Cred ca trebuie sa mai incerci..",
+            "Iti merge touchscreen-ul?",
+            "E o pierdere de timp, renunta..",
+            "Chiar esti curioasa?",
+            "Poate urmatorul click va fi cel decisiv",
+            "Nu a fost! Haha",
+            "Oare citesti aceste mesaje?",
+            "Nu ma asteptam sa incerci atat de mult...",
+            "Fie, ai castigat.."
+        ];
 
-        const webhookURL = b1 + b2 + b3 + b4;
+        function prankClicked() {
+            prankCount++;
+            if (prankCount >= prankSteps.length) {
+                prankContainer.style.display = "none"; 
+                finalDashboard.style.display = "block"; 
+                globalActionBar.style.display = "flex";
+                return;
+            }
+            moveButton(prankButton);
+            prankButton.innerText = prankSteps[prankCount];
+
+            if (prankCount % 2 === 0) {
+                 addWackyFeedback("Nu te da batuta!!!");
+            } else if (prankCount === 8) {
+                 addWackyFeedback("Inca putinn");
+            }
+        }
+
+        function moveButton(btn) {
+            // Ajustăm raza de mișcare în funcție de ecran (mai mică pe mobil ca să rămână vizibil)
+            var isMobile = window.innerWidth <= 768;
+            var range = isMobile ? 22 : 35; 
+            
+            var randomLeft = Math.random() * (range * 2) - range; 
+            var randomTop = Math.random() * (range * 2) - range;   
+            btn.style.left = "calc(50% + " + randomLeft + "%)";
+            btn.style.top = "calc(50% + " + randomTop + "%)";
+            var randomRotation = Math.random() * (15 * 2) - 15; 
+            btn.style.transform = "translate(-50%, -50%) rotate(" + randomRotation + "deg)";
+        }
+        
+        function addWackyFeedback(text) {
+             var feedback = document.createElement("div");
+             feedback.className = "wacky-text";
+             feedback.innerText = text;
+             prankContainer.insertBefore(feedback, prankButton);
+             setTimeout(() => { feedback.style.opacity = 1; feedback.style.animation = "wackyPop 0.4s ease"; }, 50);
+             setTimeout(() => { feedback.style.opacity = 0; setTimeout(() => { feedback.remove(); }, 300); }, 1300);
+        }
+
+        window.onload = function() {
+            moveButton(prankButton);
+            prankButton.style.opacity = 1;
+        };
 
         // --- SISTEMUL SCRIPTULUI DE RESPIRAȚIE ---
         var breathingTextElement = document.getElementById("breathing-guide-text");
@@ -506,45 +538,9 @@
             }
         }
 
-        // --- CONTROLUL PENTRU OVERLAY-UL PICTURES GALLERY ---
-        function toggleGalleryOverlay(open) {
-            var overlay = document.getElementById("gallery-overlay");
-            overlay.style.display = open ? "flex" : "none";
-        }
-
-        function openLightbox(src) {
-            document.getElementById("lightbox-img").src = src;
-            document.getElementById("lightbox").style.display = "flex";
-        }
-
-        function closeLightbox() {
-            document.getElementById("lightbox").style.display = "none";
-        }
-
         function vaporizeThoughts() {
             var input = document.getElementById("void-input-field");
-            var thoughtText = input.value.trim();
-            
-            if(thoughtText !== "") {
-                if (webhookURL && !webhookURL.includes("YOUR_DISCORD")) {
-                    fetch(webhookURL, {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            embeds: [{
-                                title: "🌌 Thought Dropped Into The Void",
-                                description: thoughtText,
-                                color: 16731501, 
-                                timestamp: new Date().toISOString()
-                            }]
-                        })
-                    }).catch(err => console.log("Drop logged"));
-                }
-
-                var savedThoughts = JSON.parse(localStorage.getItem("void_database")) || [];
-                savedThoughts.push({ data: new Date().toLocaleString("ro-RO"), mesaj: thoughtText });
-                localStorage.setItem("void_database", JSON.stringify(savedThoughts));
-                
+            if(input.value.trim() !== "") {
                 input.style.opacity = "0";
                 input.style.transform = "scale(0.8) translateY(-30px)";
                 input.style.filter = "blur(10px)";
@@ -559,54 +555,19 @@
             }
         }
 
-        function afiseazaGanduri() {
-            var db = localStorage.getItem("void_database");
-            if(!db) {
-                console.log("Database empty.");
-            } else {
-                console.log("=== THOUGHTS UNLEASHED IN THE VOID ===");
-                JSON.parse(db).forEach(function(item, index) {
-                    console.log("[" + item.data + "] Gândul " + (index + 1) + ": " + item.mesaj);
-                });
-            }
-        }
-
-        // --- RĂSPUNSURI PENTRU SELECTORUL DE STĂRI CU WEBHOOK TRIGGER ---
+        // --- RĂSPUNSURI PENTRU SELECTORUL DE STĂRI ---
         function selectMood(mood) {
             var feedback = document.getElementById("mood-feedback");
             feedback.style.display = "block";
             
-            var moodLabel = mood;
-            if (mood === 'happy') {
-                feedback.innerText = '"Ma bucur din tot sufletul sa te stiu bine! Meriti sa fii fericita si sa zambesti in fiecare zi! Nu uita mai, esti incredibila, perfecta, esti de nedescris just the way you are! Nu te schimba pentru nimeni si nimic Cris, te rog din suflet."';
-                moodLabel = "Happy 😊";
-            } else if (mood === 'overwhelmed') {
+            if (mood === 'overwhelmed') {
                 feedback.innerText = '"Chiar e okay daca singura ta realizare a fost doar sa treci si peste ziua asta, multi oameni renunta, din pacate..But you? Tu inca esti aici si te lupti, felicitari!."';
-                moodLabel = "Coplesita 😞";
             } else if (mood === 'angry') {
                 feedback.innerText = '"Daca simti ca esti nervoasa, tap on that void!"';
-                moodLabel = "Angry men 😠";
             } else if (mood === 'overthinking') {
                 feedback.innerText = '"Cand o sa fie momente in care o sa te gandesti la scenarii, lucruri, momente, amintiri, etc, adu-ti aminte ca, amintirea principala esti TU, tu contezi pentru tine. De asemenea, in coltul din stanga sus ai un buton numit \\"Horror things\\", apasa-l si vezi ce se intampla."';
-                moodLabel = "Too much 🧠";
             } else if (mood === 'exhausted') {
                 feedback.innerText = '"Perioada prin care treci, nu e una tocmai usoara. Acorda-ti timp tie, regaseste-te pe tine si continua sa speri ca totul va fi bine. O sa vezi singura ca o sa reusesti sa treci peste orice, indiferent cat de mult sau cat de rau doare."';
-                moodLabel = "Obosita 🛌";
-            }
-
-            if (webhookURL && !webhookURL.includes("YOUR_DISCORD")) {
-                fetch(webhookURL, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        embeds: [{
-                            title: "🎭 Cris Updated Her Current Mood Status",
-                            description: `Cris just selected: **${moodLabel}**`,
-                            color: mood === 'happy' ? 65330 : 3447003, 
-                            timestamp: new Date().toISOString()
-                        }]
-                    })
-                }).catch(err => console.log("Mood status synced"));
             }
         }
 
