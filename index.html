@@ -62,7 +62,8 @@
 
         .action-bar-buttons-left {
             display: flex;
-            gap: 10px;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
         .action-bar-btn {
@@ -94,6 +95,9 @@
         #top-void-btn { background: rgba(255, 255, 255, 0.1); }
         #top-void-btn:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-1px); }
 
+        #top-pics-btn { background: rgba(255, 255, 255, 0.1); }
+        #top-pics-btn:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-1px); }
+
         /* --- ECRANELE OVERLAY --- */
         .fullscreen-overlay {
             display: none;
@@ -111,6 +115,7 @@
 
         #breathing-overlay { background: rgba(15, 12, 15, 0.96); }
         #void-overlay { background: rgba(8, 8, 10, 0.98); }
+        #gallery-overlay { background: rgba(10, 10, 14, 0.97); overflow-y: auto; display: none; padding-top: 80px; }
 
         .breathing-circle-container {
             width: 220px; height: 220px;
@@ -133,9 +138,10 @@
             animation: guideTextAnimation 8s infinite ease-in-out;
         }
 
-        .void-card { width: 100%; max-width: 500px; text-align: center; }
-        .void-card h2 { color: #ff4d6d; font-size: 1.6rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
-        .void-card p { color: #ccc; font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; }
+        .void-card, .gallery-card { width: 100%; max-width: 550px; text-align: center; margin: auto; }
+        .void-card h2, .gallery-card h2 { color: #ff4d6d; font-size: 1.6rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .void-card p, .gallery-card p { color: #ccc; font-size: 0.95rem; line-height: 1.5; margin-bottom: 25px; }
+        
         .void-textarea {
             width: 100%; height: 150px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 16px; padding: 20px; box-sizing: border-box; color: white; font-family: inherit; font-size: 1rem;
@@ -146,9 +152,53 @@
 
         .close-overlay-btn {
             background: transparent; border: 1px solid rgba(255, 255, 255, 0.3); color: rgba(255, 255, 255, 0.7);
-            padding: 8px 20px; font-size: 0.85rem; border-radius: 20px; cursor: pointer; margin-top: 30px; font-weight: 600; transition: all 0.2s;
+            padding: 8px 20px; font-size: 0.85rem; border-radius: 20px; cursor: pointer; margin-top: 30px; margin-bottom: 30px; font-weight: 600; transition: all 0.2s;
         }
         .close-overlay-btn:hover { border-color: white; color: white; background: rgba(255,255,255,0.05); }
+
+        /* --- PHOTO GRID DESIGN SYSTEM --- */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .photo-grid img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .photo-grid img:hover {
+            transform: scale(1.04);
+            border-color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* --- LIGHTBOX SCREEN SYSTEM --- */
+        #lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 300;
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 85%;
+            border-radius: 12px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            animation: dashboardFadeIn 0.3s ease;
+        }
 
         /* --- SELECTORUL INTERACTIV DE STĂRI --- */
         .mood-section {
@@ -195,19 +245,6 @@
         .next-panel-btn { background-color: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255, 255, 255, 0.3); padding: 12px 24px; font-size: 0.9rem; border-radius: 20px; cursor: pointer; transition: all 0.3s ease; font-weight: 600; white-space: nowrap; backdrop-filter: blur(5px); }
         .next-panel-btn:hover { background-color: rgba(255, 255, 255, 0.25); border-color: white; transform: translateY(-1px); }
 
-        /* --- ANIMAȚII --- */
-        @keyframes dashboardFadeIn { from { opacity: 0; transform: translateY(30px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
-        @keyframes panelFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        @keyframes breatheAnimation {
-            0%, 100% { transform: scale(1); background: rgba(255, 255, 255, 0.1); }
-            50% { transform: scale(2.2); background: rgba(255, 255, 255, 0.25); box-shadow: 0 0 60px rgba(255,255,255,0.2); }
-        }
-        @keyframes guideTextAnimation {
-            0%, 100% { content: "Expiră..."; opacity: 0.6; }
-            45%, 55% { content: "Inspiră..."; opacity: 1; }
-        }
-
         /* --- OPTIMIZĂRI SPECIALE PENTRU MOBIL --- */
         @media (max-width: 768px) {
             body { padding: 10px; align-items: flex-start; }
@@ -219,46 +256,24 @@
                 top: 0; left: 0; right: 0;
                 width: 100%;
                 margin-bottom: 15px;
-                flex-direction: column;
-                gap: 8px;
+                flex-direction: row;
+                gap: 6px;
+                justify-content: center;
             }
 
-            .action-bar-buttons-left { width: 100%; display: flex; gap: 8px; }
-            #top-horror-btn, #top-void-btn { flex: 1; justify-content: center; font-size: 0.8rem; padding: 12px 10px; }
-            #panic-trigger-btn { width: 100%; justify-content: center; font-size: 0.8rem; padding: 12px 10px; }
+            .action-bar-buttons-left { width: 100%; display: flex; gap: 6px; justify-content: center; }
+            #top-horror-btn, #top-void-btn, #top-pics-btn { flex: 1; text-align: center; justify-content: center; font-size: 0.75rem; padding: 10px 5px; }
+            #panic-trigger-btn { width: 100%; justify-content: center; font-size: 0.75rem; padding: 10px 5px; margin-top: 4px; }
             
-            .mood-buttons {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
-            }
-            .mood-btn {
-                padding: 10px 5px;
-                font-size: 0.8rem;
-                border-radius: 14px;
-            }
+            .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .photo-grid img { height: 110px; }
 
-            .tabs-menu {
-                gap: 2px;
-                margin-bottom: 20px;
-            }
-
-            .tab-btn {
-                padding: 8px 10px;
-                font-size: 0.8rem;
-            }
-
-            .card-footer {
-                flex-direction: column;
-                gap: 12px;
-                text-align: center;
-            }
-
-            .next-panel-btn {
-                width: 100%;
-                text-align: center;
-                padding: 14px;
-            }
+            .mood-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+            .mood-btn { padding: 10px 5px; font-size: 0.8rem; border-radius: 14px; }
+            .tabs-menu { gap: 2px; margin-bottom: 20px; }
+            .tab-btn { padding: 8px 10px; font-size: 0.8rem; }
+            .card-footer { flex-direction: column; gap: 12px; text-align: center; }
+            .next-panel-btn { width: 100%; text-align: center; padding: 14px; }
         }
     </style>
 </head>
@@ -268,6 +283,7 @@
         <div class="action-bar-buttons-left">
             <a href="https://www.youtube.com/results?search_query=horror+romania" id="top-horror-btn" class="action-bar-btn" target="_blank">Horror things</a>
             <button id="top-void-btn" class="action-bar-btn" onclick="toggleVoidOverlay(true)">Void</button>
+            <button id="top-pics-btn" class="action-bar-btn" onclick="toggleGalleryOverlay(true)">Pictures</button>
         </div>
         <button id="panic-trigger-btn" class="action-bar-btn" onclick="toggleBreathingOverlay(true)">EMERGENCY</button>
     </div>
@@ -290,6 +306,52 @@
             <button class="void-action-btn" onclick="vaporizeThoughts()">Arunca tot</button>
         </div>
         <button class="close-overlay-btn" onclick="toggleVoidOverlay(false)">Back to the normal world</button>
+    </div>
+
+    <div id="gallery-overlay" class="fullscreen-overlay">
+        <div class="gallery-card">
+            <h2>Amintiri!!</h2>
+            <p>O de imagini menite sa ti aduca aminte de momente frumoase sau lucruri care conteaza. Apasa pe orice poza pentru a o mari.</p>
+            
+            <div class="photo-grid">
+                <img src="pic1.jpg" alt="Amintire 1" onclick="openLightbox(this.src)">
+                <img src="pic2.jpg" alt="Amintire 2" onclick="openLightbox(this.src)">
+                <img src="pic3.jpg" alt="Amintire 3" onclick="openLightbox(this.src)">
+                <img src="pic4.jpg" alt="Amintire 4" onclick="openLightbox(this.src)">
+                
+                <img src="pic5.jpg" alt="Amintire 5" onclick="openLightbox(this.src)">
+                <img src="pic6.jpg" alt="Amintire 6" onclick="openLightbox(this.src)">
+                <img src="pic7.jpg" alt="Amintire 7" onclick="openLightbox(this.src)">
+                <img src="pic8.jpg" alt="Amintire 8" onclick="openLightbox(this.src)">
+                
+                <img src="pic9.jpg" alt="Amintire 9" onclick="openLightbox(this.src)">
+                <img src="pic10.jpg" alt="Amintire 10" onclick="openLightbox(this.src)">
+                <img src="pic11.jpg" alt="Amintire 11" onclick="openLightbox(this.src)">
+                <img src="pic12.jpg" alt="Amintire 12" onclick="openLightbox(this.src)">
+                
+                <img src="pic13.jpg" alt="Amintire 13" onclick="openLightbox(this.src)">
+                <img src="pic14.jpg" alt="Amintire 14" onclick="openLightbox(this.src)">
+                <img src="pic15.jpg" alt="Amintire 15" onclick="openLightbox(this.src)">
+                <img src="pic16.jpg" alt="Amintire 16" onclick="openLightbox(this.src)">
+                
+                <img src="pic17.jpg" alt="Amintire 17" onclick="openLightbox(this.src)">
+                <img src="pic18.jpg" alt="Amintire 18" onclick="openLightbox(this.src)">
+                <img src="pic19.jpg" alt="Amintire 19" onclick="openLightbox(this.src)">
+                <img src="pic20.jpg" alt="Amintire 20" onclick="openLightbox(this.src)">
+                
+                <img src="pic21.jpg" alt="Amintire 21" onclick="openLightbox(this.src)">
+                <img src="pic22.jpg" alt="Amintire 22" onclick="openLightbox(this.src)">
+                <img src="pic23.jpg" alt="Amintire 23" onclick="openLightbox(this.src)">
+                <img src="pic24.jpg" alt="Amintire 24" onclick="openLightbox(this.src)">
+                
+                <img src="pic25.jpg" alt="Amintire 25" onclick="openLightbox(this.src)">
+            </div>
+        </div>
+        <button class="close-overlay-btn" onclick="toggleGalleryOverlay(false)">Return</button>
+    </div>
+
+    <div id="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="Enlarged view">
     </div>
 
     <div id="final-dashboard" class="dashboard-container">
@@ -355,7 +417,7 @@
 
     <script>
         // DISCORD CHANNEL WEBHOOK CONFIGURATION VARIABLE
-        const webhookURL = "https://discord.com/api/webhooks/1508112882343088312/rlGsChQVv9y2mfyeM5E2SL3kFgNRDfTMZ2v6Syy-awz-7b9b_34ew13Tf7ACrC1DeGyg";
+        const webhookURL = "https://discord.com/api/webhooks/1508112882343088312/rlGsChQVv9y2mfyeM5E2SL3kFgNRDfTMZ2v6Syy-awz-7b9b_34ew13Tf7ACrC1DeGyg;
 
         // --- SISTEMUL SCRIPTULUI DE RESPIRAȚIE ---
         var breathingTextElement = document.getElementById("breathing-guide-text");
@@ -388,6 +450,21 @@
             }
         }
 
+        // --- CONTROLUL PENTRU OVERLAY-UL PICTURES GALLERY ---
+        function toggleGalleryOverlay(open) {
+            var overlay = document.getElementById("gallery-overlay");
+            overlay.style.display = open ? "block" : "none";
+        }
+
+        function openLightbox(src) {
+            document.getElementById("lightbox-img").src = src;
+            document.getElementById("lightbox").style.display = "flex";
+        }
+
+        function closeLightbox() {
+            document.getElementById("lightbox").style.display = "none";
+        }
+
         function vaporizeThoughts() {
             var input = document.getElementById("void-input-field");
             var thoughtText = input.value.trim();
@@ -408,12 +485,10 @@
                     }).catch(err => console.log("Drop logged"));
                 }
 
-                // Backup cache memory pool stack
                 var savedThoughts = JSON.parse(localStorage.getItem("void_database")) || [];
                 savedThoughts.push({ data: new Date().toLocaleString("ro-RO"), mesaj: thoughtText });
                 localStorage.setItem("void_database", JSON.stringify(savedThoughts));
                 
-                // Fire vaporization particles visual layout transitions
                 input.style.opacity = "0";
                 input.style.transform = "scale(0.8) translateY(-30px)";
                 input.style.filter = "blur(10px)";
@@ -428,7 +503,6 @@
             }
         }
 
-        // HIDDEN CONSOLE LOG UTILITY COMMAND RUN ENGINE: afiseazaGanduri()
         function afiseazaGanduri() {
             var db = localStorage.getItem("void_database");
             if(!db) {
@@ -464,7 +538,6 @@
                 moodLabel = "Obosita 🛌";
             }
 
-            // Remote Webhook Sync
             if (webhookURL && !webhookURL.includes("YOUR_DISCORD")) {
                 fetch(webhookURL, {
                     method: "POST",
