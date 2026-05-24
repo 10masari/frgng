@@ -115,7 +115,7 @@
 
         #breathing-overlay { background: rgba(15, 12, 15, 0.96); }
         #void-overlay { background: rgba(8, 8, 10, 0.98); }
-        #gallery-overlay { background: rgba(10, 10, 14, 0.97); overflow-y: auto; display: none; padding-top: 80px; }
+        #gallery-overlay { background: rgba(10, 10, 14, 0.97); overflow-y: auto; padding-top: 20px; }
 
         .breathing-circle-container {
             width: 220px; height: 220px;
@@ -159,14 +159,17 @@
         /* --- PHOTO GRID DESIGN SYSTEM --- */
         .photo-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 12px;
             margin-bottom: 10px;
+            max-height: 60vh;
+            overflow-y: auto;
+            padding: 5px;
         }
 
         .photo-grid img {
             width: 100%;
-            height: 150px;
+            height: 130px;
             object-fit: cover;
             border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -265,7 +268,7 @@
             #top-horror-btn, #top-void-btn, #top-pics-btn { flex: 1; text-align: center; justify-content: center; font-size: 0.75rem; padding: 10px 5px; }
             #panic-trigger-btn { width: 100%; justify-content: center; font-size: 0.75rem; padding: 10px 5px; margin-top: 4px; }
             
-            .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; max-height: 50vh; }
             .photo-grid img { height: 110px; }
 
             .mood-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -310,8 +313,8 @@
 
     <div id="gallery-overlay" class="fullscreen-overlay">
         <div class="gallery-card">
-            <h2>Amintiri!!</h2>
-            <p>O de imagini menite sa ti aduca aminte de momente frumoase sau lucruri care conteaza. Apasa pe orice poza pentru a o mari.</p>
+            <h2>Amintiri Dragi</h2>
+            <p>O colecție mică de imagini menite să-ți aducă aminte de momente frumoase sau lucruri care contează. Apasă pe orice poză pentru a o mări.</p>
             
             <div class="photo-grid">
                 <img src="pic1.jpg" alt="Amintire 1" onclick="openLightbox(this.src)">
@@ -347,7 +350,7 @@
                 <img src="pic25.jpg" alt="Amintire 25" onclick="openLightbox(this.src)">
             </div>
         </div>
-        <button class="close-overlay-btn" onclick="toggleGalleryOverlay(false)">Return</button>
+        <button class="close-overlay-btn" onclick="toggleGalleryOverlay(false)">Back to the normal world</button>
     </div>
 
     <div id="lightbox" onclick="closeLightbox()">
@@ -399,7 +402,7 @@
                 <p>Oamenii vin si pleaca Cris, nimic nu e etern si trebuie sa invatam sa acceptam asta. Fie ei, pleaca sau mor. Asta nu ar trebuii sa te afecteze asa mult, chiar daca probabil incerci sa nu o faci. Esti de nedescris, just the way you are Cris, crede ma.</p>
                 <p>Oricand simt nevoia sa vorbesti cu cineva, poate nu e mama ta, eu sunt la un telefon distanta cum s-ar spune, asa ca, sa nu ezitezi sa suni sau sa-mi lasi un mesaj.</p>
                 
-                <a href="https://wa.me/40770236815" class="contact-action-btn" target="_blank">💬 Send message</a>
+                <a href="https://wa.me/407xxxxxxxx" class="contact-action-btn" target="_blank">💬 Send message</a>
             </div>
 
             <div class="win-box">
@@ -417,7 +420,7 @@
 
     <script>
         // DISCORD CHANNEL WEBHOOK CONFIGURATION VARIABLE
-        const webhookURL = "https://discord.com/api/webhooks/1508112882343088312/rlGsChQVv9y2mfyeM5E2SL3kFgNRDfTMZ2v6Syy-awz-7b9b_34ew13Tf7ACrC1DeGyg;
+        const webhookURL = "YOUR_DISCORD_WEBHOOK_URL_HERE";
 
         // --- SISTEMUL SCRIPTULUI DE RESPIRAȚIE ---
         var breathingTextElement = document.getElementById("breathing-guide-text");
@@ -453,7 +456,7 @@
         // --- CONTROLUL PENTRU OVERLAY-UL PICTURES GALLERY ---
         function toggleGalleryOverlay(open) {
             var overlay = document.getElementById("gallery-overlay");
-            overlay.style.display = open ? "block" : "none";
+            overlay.style.display = open ? "flex" : "none";
         }
 
         function openLightbox(src) {
