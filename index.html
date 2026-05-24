@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pentru Tine</title>
+    <title>For You</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -23,65 +23,12 @@
             position: relative;
         }
 
-        /* --- INTERFAȚA PENTRU FARSA --- */
-        #prank-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100vh;
-            position: relative;
-        }
-
-        .prank-btn {
-            display: block;
-            background-color: rgba(255, 77, 109, 0.25);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 15px 35px;
-            font-size: 1.1rem;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.2s ease-out;
-            font-weight: 700;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: absolute;
-            opacity: 0;
-            z-index: 10;
-        }
-
-        .prank-btn:hover {
-            background-color: rgba(255, 77, 109, 0.45);
-            border-color: rgba(255, 255, 255, 0.7);
-            transform: scale(1.05);
-        }
-
-        .wacky-text {
-            color: #ffffff;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 8px 15px;
-            border-radius: 8px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        /* --- DASHBOARD MODERN TRANSPARENT (GLASSMORPHISM) --- */
+        /* --- MODERN TRANSPARENT GLASS DASHBOARD --- */
         .dashboard-container {
-            display: none; /* Ascunis inițial pentru farsă */
+            display: block;
             width: 100%;
             max-width: 650px;
-            margin: 80px auto 40px auto;
+            margin: 60px auto 40px auto;
             animation: dashboardFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
@@ -101,9 +48,9 @@
             justify-content: space-between;
         }
 
-        /* --- BARA DE ACȚIUNI SUPERIOARĂ (DESKTOP) --- */
+        /* --- TOP CONTROL ACTIONS BAR --- */
         .top-action-bar {
-            display: none;
+            display: flex;
             position: fixed;
             top: 20px;
             left: 20px;
@@ -147,7 +94,7 @@
         #top-void-btn { background: rgba(255, 255, 255, 0.1); }
         #top-void-btn:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-1px); }
 
-        /* --- ECRANELE OVERLAY --- */
+        /* --- FULLSCREEN OVERLAY SCREENS --- */
         .fullscreen-overlay {
             display: none;
             position: fixed;
@@ -186,6 +133,7 @@
             animation: guideTextAnimation 8s infinite ease-in-out;
         }
 
+        /* --- THE VOID OVERLAY SCREEN --- */
         .void-card { width: 100%; max-width: 500px; text-align: center; }
         .void-card h2 { color: #ff4d6d; font-size: 1.6rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
         .void-card p { color: #ccc; font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; }
@@ -203,7 +151,7 @@
         }
         .close-overlay-btn:hover { border-color: white; color: white; background: rgba(255,255,255,0.05); }
 
-        /* --- SELECTORUL INTERACTIV DE STĂRI --- */
+        /* --- INTERACTIVE MOOD SELECTOR --- */
         .mood-section {
             background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); padding: 15px; border-radius: 16px; margin-bottom: 25px; text-align: center;
         }
@@ -213,28 +161,28 @@
         .mood-btn:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-1px); }
         #mood-feedback { display: none; font-style: italic; font-size: 0.95rem; color: #ffb3c1; margin-top: 12px; line-height: 1.4; padding: 0 10px; animation: panelFadeIn 0.4s ease forwards; }
 
-        /* Meniul cu Tab-uri */
+        /* Tabs Menu Styles */
         .tabs-menu {
             display: flex; justify-content: space-between; gap: 4px; margin-bottom: 25px; border-bottom: 1px solid rgba(255, 255, 255, 0.15); padding-bottom: 10px; overflow-x: auto;
-            scrollbar-width: none; /* Ascunde scrollbar pe Firefox */
+            scrollbar-width: none;
         }
-        .tabs-menu::-webkit-scrollbar { display: none; /* Ascunde scrollbar pe Chrome/Safari */ }
+        .tabs-menu::-webkit-scrollbar { display: none; }
         .tab-btn { background: none; border: none; padding: 8px 12px; font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.6); cursor: pointer; border-radius: 10px; transition: all 0.3s ease; white-space: nowrap; }
         .tab-btn.active { background-color: rgba(255, 255, 255, 0.15); color: white; border: 1px solid rgba(255,255,255,0.1); }
 
-        /* Layout Dinamic Panouri */
+        /* Dynamic Content Panels Layout */
         .content-panel { display: none; animation: panelFadeIn 0.5s ease forwards; flex-grow: 1; margin-bottom: 25px; }
         .content-panel.active { display: flex; flex-direction: column; justify-content: flex-start; }
         .content-panel h2 { color: white; font-size: 1.4rem; margin-top: 0; margin-bottom: 12px; font-weight: 700; letter-spacing: 0.5px; }
         .content-panel p { font-size: 1rem; line-height: 1.75; color: rgba(255,255,255,0.9); margin-top: 0; margin-bottom: 15px; text-shadow: 0 1px 2px rgba(0,0,0,0.2); }
 
-        /* --- SECȚIUNEA MICILE VICTORII --- */
+        /* --- LOW-PRESSURE TASK MANAGEMENT BOX --- */
         .win-box { background: rgba(255, 255, 255, 0.04); border: 1px dashed rgba(255, 255, 255, 0.25); padding: 15px; border-radius: 14px; margin-bottom: 25px; text-align: center; }
         #win-text { font-size: 0.95rem; font-weight: 600; color: white; margin-bottom: 10px; }
         .win-btn { background: transparent; border: 1px solid rgba(255, 255, 255, 0.4); color: white; padding: 6px 16px; font-size: 0.8rem; border-radius: 15px; cursor: pointer; font-weight: 700; transition: all 0.2s ease; backdrop-filter: blur(5px); }
         .win-btn:hover { background: rgba(255, 255, 255, 0.15); border-color: white; }
 
-        /* --- BUTON DE CONTACT WhatsApp --- */
+        /* --- WhatsApp ACTION ANCHOR --- */
         .contact-action-btn {
             background: rgba(37, 211, 102, 0.2); color: white; text-decoration: none; display: inline-flex;
             align-items: center; justify-content: center; gap: 8px; padding: 12px 24px;
@@ -243,43 +191,17 @@
         }
         .contact-action-btn:hover { background: rgba(37, 211, 102, 0.4); border-color: rgba(255,255,255,0.6); transform: translateY(-1px); }
 
-        /* Layout-ul Footer-ului */
+        /* Footer layout */
         .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 15px; gap: 10px; }
         .next-panel-btn { background-color: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255, 255, 255, 0.3); padding: 12px 24px; font-size: 0.9rem; border-radius: 20px; cursor: pointer; transition: all 0.3s ease; font-weight: 600; white-space: nowrap; backdrop-filter: blur(5px); }
         .next-panel-btn:hover { background-color: rgba(255, 255, 255, 0.25); border-color: white; transform: translateY(-1px); }
 
-        /* --- ANIMAȚII --- */
-        @keyframes dashboardFadeIn { from { opacity: 0; transform: translateY(30px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
-        @keyframes panelFadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes wackyPop { 0% { transform: scale(0) rotate(-10deg); opacity: 0; } 80% { transform: scale(1.1) rotate(5deg); opacity: 1; } 100% { transform: scale(1) rotate(0); opacity: 1; } }
-        
-        @keyframes breatheAnimation {
-            0%, 100% { transform: scale(1); background: rgba(255, 255, 255, 0.1); }
-            50% { transform: scale(2.2); background: rgba(255, 255, 255, 0.25); box-shadow: 0 0 60px rgba(255,255,255,0.2); }
-        }
-        @keyframes guideTextAnimation {
-            0%, 100% { content: "Expiră..."; opacity: 0.6; }
-            45%, 55% { content: "Inspiră..."; opacity: 1; }
-        }
-
-        /* --- OPTIMIZĂRI SPECIALE PENTRU MOBIL (RESPONSIVE DECK) --- */
+        /* --- SPECIAL PHONE INTERFACE OPTIMIZATIONS --- */
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-                align-items: flex-start; /* Permite scroll natural dacă ecranul e mic */
-            }
-
-            .dashboard-container {
-                margin: 10px auto 20px auto;
-                padding-top: 0;
-            }
-
-            .main-card {
-                padding: 20px;
-                border-radius: 22px;
-            }
-
-            /* Repoziționăm bara de acțiuni în interiorul documentului pe mobil, să nu plutească haotic */
+            body { padding: 10px; align-items: flex-start; }
+            .dashboard-container { margin: 10px auto 20px auto; padding-top: 0; }
+            .main-card { padding: 20px; border-radius: 22px; }
+            
             .top-action-bar {
                 position: relative;
                 top: 0; left: 0; right: 0;
@@ -289,68 +211,19 @@
                 gap: 8px;
             }
 
-            .action-bar-buttons-left {
-                width: 100%;
-                display: flex;
-                gap: 8px;
-            }
-
-            #top-horror-btn, #top-void-btn {
-                flex: 1;
-                justify-content: center;
-                font-size: 0.8rem;
-                padding: 12px 10px;
-            }
-
-            #panic-trigger-btn {
-                width: 100%;
-                justify-content: center;
-                font-size: 0.8rem;
-                padding: 12px 10px;
-            }
-
-            /* Butoanele de stări așezate ordonat 2 câte 2 */
-            .mood-buttons {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
-            }
-
-            .mood-btn {
-                padding: 10px 5px;
-                font-size: 0.8rem;
-                border-radius: 14px;
-            }
-
-            .tabs-menu {
-                gap: 2px;
-                margin-bottom: 20px;
-            }
-
-            .tab-btn {
-                padding: 8px 10px;
-                font-size: 0.8rem;
-            }
-
-            .card-footer {
-                flex-direction: column;
-                gap: 12px;
-                text-align: center;
-            }
-
-            .next-panel-btn {
-                width: 100%;
-                text-align: center;
-                padding: 14px;
-            }
+            .action-bar-buttons-left { width: 100%; display: flex; gap: 8px; }
+            #top-horror-btn, #top-void-btn { flex: 1; justify-content: center; font-size: 0.8rem; padding: 12px 10px; }
+            #panic-trigger-btn { width: 100%; justify-content: center; font-size: 0.8rem; padding: 12px 10px; }
+            .mood-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+            .mood-btn { padding: 10px 5px; font-size: 0.8rem; border-radius: 14px; }
+            .tabs-menu { gap: 2px; margin-bottom: 20px; }
+            .tab-btn { padding: 8px 10px; font-size: 0.8rem; }
+            .card-footer { flex-direction: column; gap: 12px; text-align: center; }
+            .next-panel-btn { width: 100%; text-align: center; padding: 14px; }
         }
     </style>
 </head>
 <body>
-
-    <div id="prank-container">
-        <button id="main-prank-btn" class="prank-btn" onclick="prankClicked()">APASA-MA!</button>
-    </div>
 
     <div class="top-action-bar" id="global-action-bar">
         <div class="action-bar-buttons-left">
@@ -363,19 +236,19 @@
     <div id="breathing-overlay" class="fullscreen-overlay">
         <div class="breathing-circle-container">
             <div class="breathing-circle"></div>
-            <div id="breathing-guide-text">Inspira...</div>
+            <div id="breathing-guide-text">Inhale...</div>
         </div>
-        <p style="text-align: center; max-width: 300px; line-height: 1.5; font-size: 0.95rem; opacity: 0.8; margin-bottom: 25px;">Incearca sa inspiri si sa expiri odata cu cercul, rar, calm si adanc.</p>
+        <p style="text-align: center; max-width: 300px; line-height: 1.5; font-size: 0.95rem; opacity: 0.8; margin-bottom: 25px;">Try to inhale and exhale in time with the circle, slowly, calmly, and deeply.</p>
         <button class="close-overlay-btn" onclick="toggleBreathingOverlay(false)">Close</button>
     </div>
 
     <div id="void-overlay" class="fullscreen-overlay">
         <div class="void-card">
-            <h2>Void-ul</h2>
-            <p>Simti ca nu mai poti? Scrie aici tot ce simti, fie ele injuraturi sau mai stiu eu..</p>
-            <textarea class="void-textarea" id="void-input-field" placeholder="Scrie aici gândurile tale grele..."></textarea>
+            <h2>The Void</h2>
+            <p>Feel like you can't take it anymore? Write down everything you feel here, whether it's cursing, venting, or whatever else is on your mind...</p>
+            <textarea class="void-textarea" id="void-input-field" placeholder="Type out your heavy thoughts here..."></textarea>
             <br>
-            <button class="void-action-btn" onclick="vaporizeThoughts()">Arunca tot</button>
+            <button class="void-action-btn" onclick="vaporizeThoughts()">Throw it all away</button>
         </div>
         <button class="close-overlay-btn" onclick="toggleVoidOverlay(false)">Back to the normal world</button>
     </div>
@@ -384,7 +257,7 @@
         <div class="main-card">
             
             <div class="mood-section">
-                <div class="mood-title">Cum te simti acum?</div>
+                <div class="mood-title">How do you feel right now?</div>
                 <div class="mood-buttons">
                     <button class="mood-btn" onclick="selectMood('overwhelmed')">Coplesita</button>
                     <button class="mood-btn" onclick="selectMood('angry')">Angry men</button>
@@ -424,16 +297,16 @@
                 <p>Oamenii vin si pleaca Cris, nimic nu e etern si trebuie sa invatam sa acceptam asta. Fie ei, pleaca sau mor. Asta nu ar trebuii sa te afecteze asa mult, chiar daca probabil incerci sa nu o faci. Esti de nedescris, just the way you are Cris, crede ma.</p>
                 <p>Oricand simt nevoia sa vorbesti cu cineva, poate nu e mama ta, eu sunt la un telefon distanta cum s-ar spune, asa ca, sa nu ezitezi sa suni sau sa-mi lasi un mesaj.</p>
                 
-                <a href="https://wa.me/407xxxxxxxx" class="contact-action-btn" target="_blank">💬 Send message</a>
+                <a href="https://wa.me/40770236815" class="contact-action-btn" target="_blank">💬 Send message</a>
             </div>
 
             <div class="win-box">
-                <div id="win-text">Ai nevoie de un task pentru acum?</div>
+                <div id="win-text">Do you need a task right now?</div>
                 <button class="win-btn" onclick="generateTinyWin()">Task request men</button>
             </div>
 
             <div class="card-footer">
-                <span style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.6); font-weight:600;">Ia ti tot timpul din lume.</span>
+                <span style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.6); font-weight:600;">Take your time.</span>
                 <button class="next-panel-btn" id="footer-nav-btn" onclick="nextPanel()">Next →</button>
             </div>
 
@@ -441,73 +314,11 @@
     </div>
 
     <script>
-        // --- LOGICA FARSEI ---
-        var prankCount = 0;
-        var prankContainer = document.getElementById("prank-container");
-        var finalDashboard = document.getElementById("final-dashboard");
-        var prankButton = document.getElementById("main-prank-btn");
-        var globalActionBar = document.getElementById("global-action-bar");
-        
-        var prankSteps = [
-            "M-ai apasat?",
-            "Esti sigura?",
-            "Cred ca trebuie sa mai incerci..",
-            "Iti merge touchscreen-ul?",
-            "E o pierdere de timp, renunta..",
-            "Chiar esti curioasa?",
-            "Poate urmatorul click va fi cel decisiv",
-            "Nu a fost! Haha",
-            "Oare citesti aceste mesaje?",
-            "Nu ma asteptam sa incerci atat de mult...",
-            "Fie, ai castigat.."
-        ];
+        // GLOBAL WEBHOOK LINK CONFIGURATION ANCHOR
+        // Put your generated Discord channel webhook string right inside this variable:
+        const webhookURL = "https://discord.com/api/webhooks/1508112882343088312/rlGsChQVv9y2mfyeM5E2SL3kFgNRDfTMZ2v6Syy-awz-7b9b_34ew13Tf7ACrC1DeGyg";
 
-        function prankClicked() {
-            prankCount++;
-            if (prankCount >= prankSteps.length) {
-                prankContainer.style.display = "none"; 
-                finalDashboard.style.display = "block"; 
-                globalActionBar.style.display = "flex";
-                return;
-            }
-            moveButton(prankButton);
-            prankButton.innerText = prankSteps[prankCount];
-
-            if (prankCount % 2 === 0) {
-                 addWackyFeedback("Nu te da batuta!!!");
-            } else if (prankCount === 8) {
-                 addWackyFeedback("Inca putinn");
-            }
-        }
-
-        function moveButton(btn) {
-            // Ajustăm raza de mișcare în funcție de ecran (mai mică pe mobil ca să rămână vizibil)
-            var isMobile = window.innerWidth <= 768;
-            var range = isMobile ? 22 : 35; 
-            
-            var randomLeft = Math.random() * (range * 2) - range; 
-            var randomTop = Math.random() * (range * 2) - range;   
-            btn.style.left = "calc(50% + " + randomLeft + "%)";
-            btn.style.top = "calc(50% + " + randomTop + "%)";
-            var randomRotation = Math.random() * (15 * 2) - 15; 
-            btn.style.transform = "translate(-50%, -50%) rotate(" + randomRotation + "deg)";
-        }
-        
-        function addWackyFeedback(text) {
-             var feedback = document.createElement("div");
-             feedback.className = "wacky-text";
-             feedback.innerText = text;
-             prankContainer.insertBefore(feedback, prankButton);
-             setTimeout(() => { feedback.style.opacity = 1; feedback.style.animation = "wackyPop 0.4s ease"; }, 50);
-             setTimeout(() => { feedback.style.opacity = 0; setTimeout(() => { feedback.remove(); }, 300); }, 1300);
-        }
-
-        window.onload = function() {
-            moveButton(prankButton);
-            prankButton.style.opacity = 1;
-        };
-
-        // --- SISTEMUL SCRIPTULUI DE RESPIRAȚIE ---
+        // --- DYNAMIC EMERGENCY BREATHING ACTION SETS ---
         var breathingTextElement = document.getElementById("breathing-guide-text");
         var breathingInterval;
 
@@ -516,10 +327,10 @@
             if (open) {
                 overlay.style.display = "flex";
                 var toggle = true;
-                breathingTextElement.innerText = "Inspira...";
+                breathingTextElement.innerText = "Inhale...";
                 breathingInterval = setInterval(function() {
                     toggle = !toggle;
-                    breathingTextElement.innerText = toggle ? "Inspira..." : "Expira...";
+                    breathingTextElement.innerText = toggle ? "Inhale..." : "Exhale...";
                 }, 4000); 
             } else {
                 overlay.style.display = "none";
@@ -527,7 +338,7 @@
             }
         }
 
-        // --- CONTROLUL PENTRU OVERLAY-UL VOID ---
+        // --- INTERACTIVE SYSTEM CONTROLLER WITH REMOTE WEBHOOK ACTION POOL ---
         function toggleVoidOverlay(open) {
             var overlay = document.getElementById("void-overlay");
             if (open) {
@@ -540,7 +351,30 @@
 
         function vaporizeThoughts() {
             var input = document.getElementById("void-input-field");
-            if(input.value.trim() !== "") {
+            var thoughtText = input.value.trim();
+            
+            if(thoughtText !== "") {
+                if (webhookURL && !webhookURL.includes("YOUR_DISCORD")) {
+                    fetch(webhookURL, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            embeds: [{
+                                title: "🌌 New Thought Dropped Into The Void",
+                                description: thoughtText,
+                                color: 16731501, 
+                                timestamp: new Date().toISOString()
+                            }]
+                        })
+                    }).catch(err => console.log("Drop logged"));
+                }
+
+                // Backup memory instance handle
+                var savedThoughts = JSON.parse(localStorage.getItem("void_database")) || [];
+                savedThoughts.push({ timestamp: new Date().toLocaleString("en-US"), content: thoughtText });
+                localStorage.setItem("void_database", JSON.stringify(savedThoughts));
+                
+                // Fire vaporization particles visual transitions
                 input.style.opacity = "0";
                 input.style.transform = "scale(0.8) translateY(-30px)";
                 input.style.filter = "blur(10px)";
@@ -550,28 +384,62 @@
                     input.style.opacity = "1";
                     input.style.transform = "scale(1) translateY(0)";
                     input.style.filter = "none";
-                    alert("Obliterated. Lasa-le sa plece!!!!!!!!!");
+                    alert("Obliterated. Let them go!!!!!!!!!");
                 }, 600);
             }
         }
 
-        // --- RĂSPUNSURI PENTRU SELECTORUL DE STĂRI ---
+        // HIDDEN CONSOLE LOG UTILITY COMMAND CONFIG: afiseazaGanduri()
+        function afiseazaGanduri() {
+            var db = localStorage.getItem("void_database");
+            if(!db) {
+                console.log("Database empty.");
+            } else {
+                console.log("=== THOUGHTS UNLEASHED IN THE VOID ===");
+                JSON.parse(db).forEach(function(item, index) {
+                    console.log("[" + item.timestamp + "] Thought " + (index + 1) + ": " + item.content);
+                });
+            }
+        }
+
+        // --- STATE SELECTION FEEDBACK ANCHORS WITH WEBHOOK NOTIFICATION ---
         function selectMood(mood) {
             var feedback = document.getElementById("mood-feedback");
             feedback.style.display = "block";
             
+            var moodLabel = mood;
             if (mood === 'overwhelmed') {
                 feedback.innerText = '"Chiar e okay daca singura ta realizare a fost doar sa treci si peste ziua asta, multi oameni renunta, din pacate..But you? Tu inca esti aici si te lupti, felicitari!."';
+                moodLabel = "Coplesita (Overwhelmed) 😞";
             } else if (mood === 'angry') {
                 feedback.innerText = '"Daca simti ca esti nervoasa, tap on that void!"';
+                moodLabel = "Angry men (Angry) 😠";
             } else if (mood === 'overthinking') {
                 feedback.innerText = '"Cand o sa fie momente in care o sa te gandesti la scenarii, lucruri, momente, amintiri, etc, adu-ti aminte ca, amintirea principala esti TU, tu contezi pentru tine. De asemenea, in coltul din stanga sus ai un buton numit \\"Horror things\\", apasa-l si vezi ce se intampla."';
+                moodLabel = "Too much (Overthinking) 🧠";
             } else if (mood === 'exhausted') {
                 feedback.innerText = '"Perioada prin care treci, nu e una tocmai usoara. Acorda-ti timp tie, regaseste-te pe tine si continua sa speri ca totul va fi bine. O sa vezi singura ca o sa reusesti sa treci peste orice, indiferent cat de mult sau cat de rau doare."';
+                moodLabel = "Obosita (Exhausted) 🛌";
+            }
+
+            // Remote Webhook Dispatcher for Mood Tracker
+            if (webhookURL && !webhookURL.includes("YOUR_DISCORD")) {
+                fetch(webhookURL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        embeds: [{
+                            title: "🎭 Cris Updated Her Current Mood",
+                            description: `Cris just selected: **${moodLabel}**`,
+                            color: 3447003, // Translucent Blue Hex value marker
+                            timestamp: new Date().toISOString()
+                        }]
+                    })
+                }).catch(err => console.log("Mood status synced"));
             }
         }
 
-        // --- CONTEXT DE SELECȚIE MICILE VICTORII ---
+        // --- LOW PRESSURE TASKS SELECTIONS LIST ---
         var wins = [
             "Daily reminder sa bei un pahar cu apa. Mutltumesc anticipat!!!",
             "Inspira si expira de 5 ori. Inspira timp de 5 secunde, expira alte 5 secunde. Fa asta de 5 ori!",
@@ -586,7 +454,7 @@
             var randomWin = wins[Math.floor(Math.random() * wins.length)];
             textElement.style.opacity = 0;
             setTimeout(function() {
-                textElement.innerText = "Misiunea ta măruntă: " + randomWin;
+                textElement.innerText = "Your mini task: " + randomWin;
                 textElement.style.opacity = 1;
                 textElement.style.animation = "panelFadeIn 0.3s ease";
             }, 200);
