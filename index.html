@@ -89,7 +89,7 @@
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.1), inset 0 2px 4px rgba(0,0,0,0.15);
         }
 
-        /* OPȚIUNEA REMEMBER ME OPTIMIZATĂ DESIGN */
+        /* OPȚIUNEA REMEMBER ME */
         .remember-container {
             display: flex;
             align-items: center;
@@ -148,7 +148,7 @@
             animation: shake 0.4s ease;
         }
 
-        /* --- DASHBOARD MODERN TRANSPARENT (GLASSMORPHISM) --- */
+        /* --- DASHBOARD MODERN TRANSPARENT --- */
         .dashboard-container {
             display: none; /* Ascuns inițial */
             width: 100%;
@@ -173,7 +173,7 @@
             justify-content: space-between;
         }
 
-        /* --- BARA DE ACȚIUNI SUPERIOARĂ --- */
+        /* --- BARA DE ACȚIUNI SUPERIOARĂ (STÂNGA SUS) --- */
         .top-action-bar {
             display: none; /* Ascuns inițial */
             position: fixed;
@@ -222,6 +222,34 @@
 
         #top-pics-btn { background: rgba(255, 255, 255, 0.1); }
         #top-pics-btn:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-1px); }
+
+        /* --- BUTONUL DE LOGOUT PLUTITOR ÎN DREAPTA JOS DE TOT (FIXED) --- */
+        .fixed-corner-logout {
+            display: none; /* Ascuns inițial */
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.6);
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            user-select: none;
+        }
+        .fixed-corner-logout:hover {
+            background: rgba(255, 77, 109, 0.2);
+            color: #ff4d6d;
+            border-color: #ff4d6d;
+            transform: translateY(-2px);
+        }
 
         /* --- ECRANELE OVERLAY --- */
         .fullscreen-overlay {
@@ -275,7 +303,6 @@
         .void-action-btn { background: rgba(255, 77, 109, 0.3); color: white; border: 1px solid rgba(255, 255, 255, 0.3); padding: 12px 30px; font-size: 0.95rem; font-weight: 700; border-radius: 25px; cursor: pointer; backdrop-filter: blur(5px); transition: all 0.2s; text-transform: uppercase; }
         .void-action-btn:hover { background: rgba(255, 77, 109, 0.6); transform: scale(1.02); }
 
-        /* --- BUTON FIXED TOP-RIGHT PENTRU ÎNCHIDERE --- */
         .corner-close-btn {
             position: fixed;
             top: 25px;
@@ -370,13 +397,13 @@
         .tab-btn { background: none; border: none; padding: 8px 12px; font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.6); cursor: pointer; border-radius: 10px; transition: all 0.3s ease; white-space: nowrap; }
         .tab-btn.active { background-color: rgba(255, 255, 255, 0.15); color: white; border: 1px solid rgba(255,255,255,0.1); }
 
-        /* Layout Dinamic Panouri */
+        /* Layout Panouri */
         .content-panel { display: none; animation: panelFadeIn 0.5s ease forwards; flex-grow: 1; margin-bottom: 25px; }
         .content-panel.active { display: flex; flex-direction: column; justify-content: flex-start; }
         .content-panel h2 { color: white; font-size: 1.4rem; margin-top: 0; margin-bottom: 12px; font-weight: 700; letter-spacing: 0.5px; }
         .content-panel p { font-size: 1rem; line-height: 1.75; color: rgba(255,255,255,0.9); margin-top: 0; margin-bottom: 15px; text-shadow: 0 1px 2px rgba(0,0,0,0.2); }
 
-        /* --- SECȚIUNEA MICILE VICTORII --- */
+        /* --- MICILE VICTORII --- */
         .win-box { background: rgba(255, 255, 255, 0.04); border: 1px dashed rgba(255, 255, 255, 0.25); padding: 15px; border-radius: 14px; margin-bottom: 25px; text-align: center; }
         #win-text { font-size: 0.95rem; font-weight: 600; color: white; margin-bottom: 10px; }
         .win-btn { background: transparent; border: 1px solid rgba(255, 255, 255, 0.4); color: white; padding: 6px 16px; font-size: 0.8rem; border-radius: 15px; cursor: pointer; font-weight: 700; transition: all 0.2s ease; backdrop-filter: blur(5px); }
@@ -391,14 +418,43 @@
         }
         .contact-action-btn:hover { background: rgba(37, 211, 102, 0.4); border-color: rgba(255,255,255,0.6); transform: translateY(-1px); }
 
-        /* Layout-ul Footer-ului */
-        .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 15px; gap: 10px; }
-        .next-panel-btn { background-color: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255, 255, 255, 0.3); padding: 12px 24px; font-size: 0.9rem; border-radius: 20px; cursor: pointer; transition: all 0.3s ease; font-weight: 600; white-space: nowrap; backdrop-filter: blur(5px); }
-        .next-panel-btn:hover { background-color: rgba(255, 255, 255, 0.25); border-color: white; transform: translateY(-1px); }
+        /* --- SUBTSOL CARD (Doar textul dorit și butonul Next) --- */
+        .card-footer { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-top: 1px solid rgba(255, 255, 255, 0.15); 
+            padding-top: 15px; 
+            gap: 10px; 
+        }
         
-        .logout-link { font-size: 0.8rem; color: rgba(255, 255, 255, 0.4); text-decoration: underline; cursor: pointer; transition: color 0.2s; }
-        .logout-link:hover { color: #ff4d6d; }
+        .footer-text-reminder { 
+            font-size: 0.9rem; 
+            font-style: italic; 
+            color: rgba(255, 255, 255, 0.5); 
+            font-weight: 500; 
+            text-align: left;
+        }
 
+        .next-panel-btn { 
+            background-color: rgba(255, 255, 255, 0.1); 
+            color: white; 
+            border: 1px solid rgba(255, 255, 255, 0.3); 
+            padding: 12px 24px; 
+            font-size: 0.9rem; 
+            border-radius: 20px; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            font-weight: 600; 
+            white-space: nowrap; 
+            backdrop-filter: blur(5px); 
+        }
+        .next-panel-btn:hover { 
+            background-color: rgba(255, 255, 255, 0.25); 
+            border-color: white; 
+            transform: translateY(-1px); 
+        }
+        
         /* --- ANIMAȚII --- */
         @keyframes lockFadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -444,10 +500,11 @@
                 flex-direction: row;
                 gap: 6px;
                 justify-content: center;
+                flex-wrap: wrap;
             }
 
-            .action-bar-buttons-left { width: 100%; display: flex; gap: 6px; justify-content: center; }
-            #top-horror-btn, #top-void-btn, #top-pics-btn { flex: 1; text-align: center; justify-content: center; font-size: 0.75rem; padding: 10px 5px; }
+            .action-bar-buttons-left { width: 100%; display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+            #top-horror-btn, #top-void-btn, #top-pics-btn { flex: 1; text-align: center; justify-content: center; font-size: 0.75rem; padding: 10px 5px; white-space: nowrap; min-width: 75px; }
             #panic-trigger-btn { width: 100%; justify-content: center; font-size: 0.75rem; padding: 10px 5px; margin-top: 4px; }
             
             .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; max-height: 50vh; }
@@ -457,8 +514,22 @@
             .mood-btn { padding: 10px 5px; font-size: 0.8rem; border-radius: 14px; }
             .tabs-menu { gap: 2px; margin-bottom: 20px; }
             .tab-btn { padding: 8px 10px; font-size: 0.8rem; }
+            
+            /* Footer mobil */
             .card-footer { flex-direction: column; gap: 12px; text-align: center; }
+            .footer-text-reminder { text-align: center; }
             .next-panel-btn { width: 100%; text-align: center; padding: 14px; }
+
+            /* Repoziționare Ieșire pe mobil ca să fie accesibilă în siguranță */
+            .fixed-corner-logout {
+                position: relative;
+                bottom: 0;
+                right: 0;
+                margin: 20px auto 10px auto;
+                display: inline-block;
+                width: fit-content;
+                text-align: center;
+            }
 
             .corner-close-btn {
                 top: 15px;
@@ -472,27 +543,24 @@
 </head>
 <body>
 
-    <!-- SECȚIUNE DE INTRARE / AUTENTIFICARE -->
     <div class="auth-wrapper" id="gatekeeper-screen">
         <div class="auth-card">
-            <h1>Bun venit</h1>
-            <p>Introdu cheia numerică de acces pentru a debloca interfața.</p>
+            <h1>Welcome!!!</h1>
+            <p>Introdu parola mai jos</p>
             <div class="auth-field-wrapper">
                 <input type="password" id="access-key" class="auth-input" maxlength="6" placeholder="••••" onkeydown="handleAuthKeydown(event)">
             </div>
             
-            <!-- CASUȚA REMEMBER ME -->
             <div class="remember-container" onclick="toggleCheckboxCheckbox()">
                 <input type="checkbox" id="remember-me-check" onclick="event.stopPropagation();">
-                <label for="remember-me-check">Ține-mă minte pe acest dispozitiv</label>
+                <label for="remember-me-check">Remember me</label>
             </div>
 
-            <button class="auth-btn" onclick="verifyAccess()">Accesează</button>
-            <div id="auth-error-msg" class="auth-error">Cod incorect. Încearcă din nou.</div>
+            <button class="auth-btn" onclick="verifyAccess()">Login</button>
+            <div id="auth-error-msg" class="auth-error">Oops, parola este gresita, mai incearca?</div>
         </div>
     </div>
 
-    <!-- BARA DE ACȚIUNI SUPERIOARĂ -->
     <div class="top-action-bar" id="global-action-bar">
         <div class="action-bar-buttons-left">
             <a href="https://www.youtube.com/results?search_query=horror+romania" id="top-horror-btn" class="action-bar-btn" target="_blank">Horror things</a>
@@ -502,7 +570,8 @@
         <button id="panic-trigger-btn" class="action-bar-btn" onclick="toggleBreathingOverlay(true)">EMERGENCY</button>
     </div>
 
-    <!-- OVERLAY RESPIRAȚIE -->
+    <button class="fixed-corner-logout" id="global-logout-btn" onclick="handleLogout()">Logout</button>
+
     <div id="breathing-overlay" class="fullscreen-overlay">
         <div class="breathing-circle-container">
             <div class="breathing-circle"></div>
@@ -512,19 +581,17 @@
         <button class="action-bar-btn" onclick="toggleBreathingOverlay(false)">Close</button>
     </div>
 
-    <!-- OVERLAY VOID -->
     <div id="void-overlay" class="fullscreen-overlay">
         <button class="corner-close-btn" onclick="toggleVoidOverlay(false)">×</button>
         <div class="void-card">
             <h2>Void-ul</h2>
-            <p>Simti ca nu mai poti? Scrie aici tot ce simti, fie ele injuraturi sau mai stiu eu..</p>
+            <p>Simti ca nu mai poti? Scrie aici tout ce simti, fie ele injuraturi sau mai stiu eu..</p>
             <textarea class="void-textarea" id="void-input-field" placeholder="scrie aici tot ce ai pe suflet"></textarea>
             <br>
             <button class="void-action-btn" onclick="vaporizeThoughts()">Arunca tot</button>
         </div>
     </div>
 
-    <!-- OVERLAY GALERIE FOTO -->
     <div id="gallery-overlay" class="fullscreen-overlay">
         <button class="corner-close-btn" onclick="toggleGalleryOverlay(false)">×</button>
         <div class="gallery-card">
@@ -578,17 +645,14 @@
                 <img src="pic36.jpg" alt="36" onclick="openLightbox(this.src)">
 
                 <img src="pic37.jpg" alt="37" onclick="openLightbox(this.src)">
-                <img src="pic37.jpg" alt="38" onclick="openLightbox(this.src)">
             </div>
         </div>
     </div>
 
-    <!-- LIGHTBOX FOTO -->
     <div id="lightbox" onclick="closeLightbox()">
         <img id="lightbox-img" src="" alt="Enlarged view">
     </div>
 
-    <!-- MAIN DASHBOARD -->
     <div id="final-dashboard" class="dashboard-container">
         <div class="main-card">
             
@@ -619,7 +683,7 @@
 
             <div class="content-panel" id="panel1">
                 <h2>About you</h2>
-                <p>Te rog, cris, sa nu lasi niciodata aceasta situatie sa te faca sa te indoiesti sau sa ai dubii de propria ta valoare sau de cine esti tu ca persoana. Felul în care cineva a ales sa plece sau felul in care a gestionat anumite lucruri este caracterul lui. Nu a considerat ca ceea ce a facut a fost gresit. Tu ai facut totul si totusi, a fost de indeajuns, ai dat totul crezand ca o sa ti fie bine, dar e okay, e o greseala pe care si eu am facut-o, toata lumea o face. Si stiu ca doare, doare rau dar nu poti vindeca asta intr o zi, doua, trei and so on. Acorda-ti timp tie si da-i bataie in a te recunoaste pe tine Cris.</p>
+                <p>Te rog, cris, sa nu lasi niciodata aceasta situatie sa te faca sa te indoiesti sau sa ai dubii de propria ta valoare sau de cine esti tu ca persoana. Felul în care cineva a ales sa plece sau felul in care a gestionat anumite lucruri este caracterul lui. Nu a considerat ca ceea ce a facut a fost gresit. Tu ai facut toutul si totusi, a fost de indeajuns, ai dat toutul crezand ca o sa ti fie bine, dar e okay, e o greseala pe care si eu am facut-o, toata lumea o face. Si stiu ca doare, doare rau dar nu poti vindeca asta intr o zi, doua, trei and so on. Acorda-ti timp tie si da-i bataie in a te recunoaste pe tine Cris.</p>
                 <p>Esti in continuare aceeasi persoană incredibila, inteligenta, minunata și carismatica pe care o stiu dintotdeauna. De ce nu incerci sa-ti scrii tu propria poveste si sa nu lasi alti oameni sa ti-o scrie?</p>
             </div>
 
@@ -642,7 +706,7 @@
             </div>
 
             <div class="card-footer">
-                <span class="logout-link" onclick="handleLogout()">Ieșire (Cere cod)</span>
+                <span class="footer-text-reminder">Ia-ti tot timpul de care ai nevoie!</span>
                 <button class="next-panel-btn" id="footer-nav-btn" onclick="nextPanel()">Next →</button>
             </div>
 
@@ -650,7 +714,7 @@
     </div>
 
     <script>
-        // VERIFICARE AUTOMATĂ LA ÎNCĂRCAREA PAGINII (REMEMBER ME WORKER)
+        // VERIFICARE AUTOMATĂ SESIUNE LA PORNIRE (REMEMBER ME WORKER)
         window.onload = function() {
             var isRemembered = localStorage.getItem("remember_cris_session");
             if (isRemembered === "granted") {
@@ -671,18 +735,14 @@
             
             // Cheia stabilită: 1109
             if (keyInput === "1109") {
-                // Dacă "Ține-mă minte" este bifat, salvăm starea local în browser
                 if (rememberCheckbox.checked) {
                     localStorage.setItem("remember_cris_session", "granted");
                 }
-                
                 bypassLoginScreen();
             } else {
-                // Tratare eroare
                 errorDisplay.style.display = "block";
                 document.getElementById("access-key").value = "";
                 
-                // Repornire animație shake în caz de eșec repetat
                 errorDisplay.style.animation = 'none';
                 errorDisplay.offsetHeight; 
                 errorDisplay.style.animation = null;
@@ -690,19 +750,18 @@
         }
 
         function bypassLoginScreen() {
-            // Ascundem ecranul de login
             document.getElementById("gatekeeper-screen").style.display = "none";
-            
-            // Afișăm dashboard-ul principal și bara de navigare
             document.getElementById("final-dashboard").style.display = "block";
             document.getElementById("global-action-bar").style.display = "flex";
+            document.getElementById("global-logout-btn").style.display = "block";
         }
 
         function handleLogout() {
-            // Ștergem sesiunea salvată din browser
-            localStorage.removeItem("remember_cris_session");
-            // Reîncărcăm pagina pentru a bloca ecranul din nou
-            window.location.reload();
+            var confirmLogout = confirm("Sigur vrei să ieși? Va trebui să introduci din nou codul data viitoare.");
+            if (confirmLogout) {
+                localStorage.removeItem("remember_cris_session");
+                window.location.reload();
+            }
         }
 
         function handleAuthKeydown(event) {
@@ -711,14 +770,14 @@
             }
         }
 
-        // DISCORD CHANNEL WEBHOOK CONFIGURATION VARIABLE
+        // DISCORD CHANNEL WEBHOOK SYSTEM
         const b1 = "https://discord.com";
         const b2 = "/api/webhooks/";
         const b3 = "1508112882343088312";
         const b4 = "/rlGsChQVv9y2mfyeM5E2SL3kFgNRDfTMZ2v6Syy-awz-7b9b_34ew13Tf7ACrC1DeGyg";
         const webhookURL = b1 + b2 + b3 + b4;
 
-        // --- SISTEMUL SCRIPTULUI DE RESPIRAȚIE ---
+        // --- SISTEM RESPIRAȚIE ---
         var breathingTextElement = document.getElementById("breathing-guide-text");
         var breathingInterval;
 
@@ -738,7 +797,7 @@
             }
         }
 
-        // --- CONTROLUL PENTRU OVERLAY-UL VOID ---
+        // --- VOID OVERLAY ---
         function toggleVoidOverlay(open) {
             var overlay = document.getElementById("void-overlay");
             if (open) {
@@ -749,7 +808,7 @@
             }
         }
 
-        // --- CONTROLUL PENTRU OVERLAY-UL PICTURES GALLERY ---
+        // --- PICTURES GALLERY ---
         function toggleGalleryOverlay(open) {
             var overlay = document.getElementById("gallery-overlay");
             overlay.style.display = open ? "flex" : "none";
@@ -802,7 +861,7 @@
             }
         }
 
-        // --- RĂSPUNSURI PENTRU SELECTORUL DE STĂRI CU WEBHOOK TRIGGER ---
+        // --- SELECTOR DE STĂRI ---
         function selectMood(mood) {
             var feedback = document.getElementById("mood-feedback");
             feedback.style.display = "block";
@@ -836,7 +895,7 @@
             }
         }
 
-        // --- MANAGING TABS / PANELS SYSTEM ---
+        // --- TAB / PANEL SYSTEM ---
         var currentPanelIndex = 0;
         const totalPanels = 4;
 
@@ -866,11 +925,11 @@
             }
         }
 
-        // --- MICILE VICTORII TASK GENERATOR ---
+        // --- TASK GENERATOR ---
         const tinyWinsCollection = [
             "Bea un pahar cu apă chiar acum.",
             "Spune-ți în gând: 'Sunt puternică și pot trece peste asta'.",
-            "Întinde-ți spatele și brațele timp de 15 secunde.",
+            "Întendre-ți spatele și brațele timp de 15 secunde.",
             "Uită-te la Fuzzy și mângâie-l puțin.",
             "Trimite-i un mesaj scurt mamei tale doar ca să o întrebi ce face.",
             "Închide ochii și respiră adânc de 3 ori.",
